@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Digital Kelurahan Paseng</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root { 
+            --primary: #003366; 
+            --accent-grad: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+            --bg-light: #f8fafc;
+        }
+
+        body { 
+            background-color: var(--bg-light); 
+            font-family: 'Inter', sans-serif; 
+            color: #334155;
+        }
+
+        /* Header & Hero */
+        .navbar { background: white; border-bottom: 2px solid #f1f5f9; }
+        .hero-section { 
+            background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.75)), 
+                        url('https://lh3.googleusercontent.com/d/157ujB8nZfSf2x0UXJpfiL1DNHR_vJtCb');
+            background-size: cover; 
+            background-position: center;
+            color: white; 
+            padding: 80px 0 120px; 
+            text-align: center; 
+        }
+
+        /* Information Bar */
+        .info-bar {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: inline-flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Leader Cards */
+        .leader-container { margin-top: -80px; }
+        .leader-card { 
+            border: none; border-radius: 20px; overflow: hidden; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08); background: white; 
+            transition: 0.3s;
+        }
+        .leader-img { height: 250px; object-fit: cover; width: 100%; border-bottom: 4px solid #f1c40f; }
+        .leader-info { padding: 12px; text-align: center; }
+        .leader-info h6 { font-size: 0.75rem; margin: 0; font-weight: 700; color: var(--primary); line-height: 1.2; }
+        .leader-info small { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; }
+
+        /* Service Menu */
+        .service-card { 
+            border: none; border-radius: 24px; background: white; 
+            padding: 30px 20px; transition: 0.3s; height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .service-card:hover:not(.disabled-card) { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        
+        .icon-box { 
+            height: 64px; width: 64px; 
+            background: var(--accent-grad); 
+            border-radius: 18px; display: flex; align-items: center; 
+            justify-content: center; margin-bottom: 18px; color: white;
+            box-shadow: 0 10px 15px -3px rgba(243, 156, 18, 0.3);
+        }
+        .icon-box span { font-size: 32px; }
+
+        /* Status Offline */
+        .disabled-card { background-color: #f1f5f9; opacity: 0.6; cursor: not-allowed !important; }
+        .offline-badge { font-size: 0.65rem; background: #ef4444; color: white; padding: 2px 8px; border-radius: 10px; margin-top: 5px; }
+
+        /* Footer */
+        .footer { background: #0f172a; color: #94a3b8; padding: 60px 0 30px; border-top: 5px solid #f1c40f; }
+        .footer h6 { color: white; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .footer-link { color: #94a3b8; text-decoration: none; transition: 0.3s; }
+        .footer-link:hover { color: #f1c40f; }
+
+        /* Overlay */
+        #appOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; }
+        iframe { width: 100%; height: calc(100% - 60px); border: none; }
+        
+        #loadingOverlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="loadingOverlay">
+    <div class="spinner-border text-warning mb-3" role="status"></div>
+    <h6 class="fw-bold">Menghubungkan Ke Server...</h6>
+    <p class="text-muted small">Kelurahan Paseng Digital Service</p>
+</div>
+
+<nav class="navbar sticky-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="https://lh3.googleusercontent.com/d/13tYjR3hoiC_Q1TO3i3CLzhDhGdPF9e5Q" alt="Logo" height="50" class="me-3">
+            <div>
+                <h6 class="mb-0 fw-bold text-dark">KELURAHAN PASENG</h6>
+                <small class="text-muted">Portal Pelayanan Terpadu</small>
+            </div>
+        </a>
+    </div>
+</nav>
+
+<section class="hero-section">
+    <div class="container">
+        <div class="info-bar">
+            <span id="greeting-text" class="fw-bold text-warning">Selamat Datang</span>
+            <span>|</span>
+            <span id="live-clock">00:00:00</span>
+            <span class="d-none d-md-inline">|</span>
+            <span id="live-date" class="d-none d-md-inline"></span>
+        </div>
+        <h1 class="display-6 fw-bold mb-3">Selamat Datang di Layanan Digital Kelurahan</h1>
+        <p class="lead opacity-75">Solusi administrasi modern untuk masyarakat Paseng</p>
+    </div>
+</section>
+
+<div class="container leader-container">
+    <div class="row g-3 justify-content-center mb-5">
+        <div class="col-4 col-md-3">
+            <div class="leader-card">
+                <img src="https://lh3.googleusercontent.com/d/17vNhb2YmwQC-KSQ0_Ak_FR1hafMIMqrj" class="leader-img" alt="Wakil">
+                <div class="leader-info">
+                    <h6>HERONIMUS MAKAINAS,SE</h6>
+                    <small>Wakil Bupati Sitaro</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 col-md-3">
+            <div class="leader-card">
+                <img src="https://lh3.googleusercontent.com/d/1oRf4wmI5KCLrmog4GmIJjtbFFZ_XasmW" class="leader-img" alt="Bupati">
+                <div class="leader-info">
+                    <h6>CHYNTIA I. KALANGIT,S.KM</h6>
+                    <small>Bupati Kepulauan Sitaro</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 col-md-3">
+            <div class="leader-card border-warning">
+                <img src="https://lh3.googleusercontent.com/d/1pP-9F7pJ53j9JurLqaZJr1r-9NBwePIC" class="leader-img" alt="Lurah">
+                <div class="leader-info">
+                    <h6>RIO ROLLAND BIDUANG, A.Md</h6>
+                    <small>Lurah Paseng</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-6 col-md-4">
+            <div class="service-card" onclick="openSecureApp('layanan', 'Layanan Publik')">
+                <div class="icon-box"><span class="material-symbols-outlined">badge</span></div>
+                <h6 class="fw-bold mb-1 text-center">Layanan Bypass</h6>
+                <small class="text-muted text-center d-none d-md-block">Penerbitan Surat Rekomendasi / Keterangan</small>
+                <small class="text-muted text-center d-none d-md-block">Pembayaran PBB</small>
+                <small class="text-muted text-center d-none d-md-block">Transparansi Anggaran dll</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="service-card" onclick="openSecureApp('posyandu', 'SIPANDU')">
+                <div class="icon-box"><span class="material-symbols-outlined">health_and_safety</span></div>
+                <h6 class="fw-bold mb-1 text-center">SIPANDU</h6>
+                <small class="text-muted text-center d-none d-md-block">Informasi Layanan Posyandu</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="service-card" onclick="openSecureApp('tamu', 'Buku Tamu')">
+                <div class="icon-box"><span class="material-symbols-outlined">history_edu</span></div>
+                <h6 class="fw-bold mb-1 text-center">Buku Tamu</h6>
+                <small class="text-muted text-center d-none d-md-block">Registrasi Kunjungan</small>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="service-card" onclick="openSecureApp('bencana', 'Info Bencana Alam')">
+                <div class="icon-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <span class="material-symbols-outlined">emergency</span>
+                </div>
+                <h6 class="fw-bold mb-1 text-center">Info Layanan Bencana Alam</h6>
+                <small class="text-muted text-center d-none d-md-block">Informasi Terdampak</small>
+            </div>
+        </div>
+        
+        <div class="col-6 col-md-4">
+            <div class="service-card disabled-card" onclick="alert('Layanan Aplikasi Android sedang dalam pemeliharaan.')">
+                <div class="icon-box" style="background: #94a3b8; box-shadow: none;">
+                    <span class="material-symbols-outlined">install_mobile</span>
+                </div>
+                <h6 class="fw-bold mb-1 text-center text-secondary">App Android Epas</h6>
+                <span class="offline-badge">OFFLINE</span>
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div class="service-card border-dashed" style="border: 2px dashed #cbd5e1; background: transparent; cursor: default;">
+                <div class="icon-box" style="background: #e2e8f0; color: #64748b; box-shadow: none;">
+                    <span class="material-symbols-outlined">add_circle</span>
+                </div>
+                <h6 class="fw-bold mb-1 text-muted text-center">Segera Hadir</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-5">
+                <h6>Kelurahan Paseng</h6>
+                <p class="small">Pusat pelayanan digital masyarakat untuk mewujudkan tata kelola pemerintahan yang transparan dan akuntabel di wilayah Kecamatan Siau Barat, Kab. Kepulauan Sitaro.</p>
+                <div class="d-flex gap-3 fs-5 mt-3">
+                    <a href="#" class="footer-link"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="footer-link"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="footer-link"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-md-3 offset-md-1">
+                <h6>Tautan Cepat</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="#" class="footer-link">Profil Kelurahan</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Berita Terkini</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Kontak Darurat</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6>Kontak Kami</h6>
+                <p class="small mb-1"><i class="bi bi-geo-alt me-2 text-warning"></i> Jl. Utama Paseng, Siau Barat</p>
+                <p class="small mb-1"><i class="bi bi-envelope me-2 text-warning"></i> epaselektronikpaseng@gmail.com</p>
+                <p class="small"><i class="bi bi-telephone me-2 text-warning"></i> 0813</p>
+            </div>
+        </div>
+        <hr class="my-4 border-secondary opacity-25">
+        <div class="text-center small">
+            © 2026 Pemerintah Kelurahan Paseng. Dikembangkan oleh Seksi Pelayanan.
+        </div>
+    </div>
+</footer>
+
+<div id="appOverlay">
+    <div class="d-flex align-items-center justify-content-between p-3 border-bottom shadow-sm">
+        <h6 class="mb-0 fw-bold" id="currentAppName">Memuat Layanan...</h6>
+        <button class="btn btn-sm btn-danger rounded-pill px-4" onclick="closeApp()">Tutup</button>
+    </div>
+    <iframe id="appFrame" src="" onload="hideLoading()"></iframe>
+</div>
+
+<script>
+    const APPS = {
+        layanan: "https://script.google.com/macros/s/AKfycbyRWCEvsphRQqAmcGPPl8bL0XW5j1Nz3OeRM0_zQpdbhpGJX6QCnSpudG2VnZBRkF6p/exec",
+        posyandu: "https://script.google.com/macros/s/AKfycbyKM0RCrw3gk-nIWnAd7hl2sa_8xar1XSqgt-n2PHBfmFnJN22GY0Xt4bGnh1uF7CxVDw/exec",
+        tamu: "https://script.google.com/macros/s/AKfycbwuNWl8IfSymCmA6gFcYqZDcDFMr2unggIZUX1aApN-5VM3rf1DroAA8r1uHo1JvytBuA/exec",
+        bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec"
+    };
+
+    function updateClock() {
+        const now = new Date();
+        const hr = now.getHours();
+        let greet = hr < 12 ? "Selamat Pagi" : hr < 15 ? "Selamat Siang" : hr < 18 ? "Selamat Sore" : "Selamat Malam";
+
+        document.getElementById('greeting-text').innerText = greet;
+        document.getElementById('live-clock').innerText = now.toLocaleTimeString('id-ID');
+        document.getElementById('live-date').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function openSecureApp(key, name) {
+        let n1 = Math.floor(Math.random() * 5) + 1;
+        let n2 = Math.floor(Math.random() * 5) + 1;
+        let answer = prompt(`Keamanan: Berapakah ${n1} + ${n2}?`);
+
+        if (parseInt(answer) === (n1 + n2)) {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            document.getElementById('currentAppName').innerText = name.toUpperCase();
+            document.getElementById('appFrame').src = APPS[key];
+            document.getElementById('appOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        } else if (answer !== null) {
+            alert("Jawaban salah.");
+        }
+    }
+
+    function hideLoading() { document.getElementById('loadingOverlay').style.display = 'none'; }
+    function closeApp() {
+        document.getElementById('appOverlay').style.display = 'none';
+        document.getElementById('appFrame').src = "";
+        document.body.style.overflow = 'auto';
+    }
+</script>
+
+</body>
+</html>
