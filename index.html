@@ -6,7 +6,6 @@
     <title>Portal Digital Kelurahan Paseng</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
@@ -24,7 +23,7 @@
         }
 
         /* Header & Hero */
-        .navbar { background: white; border-bottom: 2px solid #f1f5f9; }
+        .navbar { background: white; border-bottom: 2px solid #f1f5f9; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
         .hero-section { 
             background: linear-gradient(rgba(0,51,102,0.85), rgba(0,51,102,0.75)), 
                         url('https://lh3.googleusercontent.com/d/157ujB8nZfSf2x0UXJpfiL1DNHR_vJtCb');
@@ -53,38 +52,71 @@
         .leader-card { 
             border: none; border-radius: 20px; overflow: hidden; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.08); background: white; 
-            transition: 0.3s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .leader-img { height: 250px; object-fit: cover; width: 100%; border-bottom: 4px solid #f1c40f; }
-        .leader-info { padding: 12px; text-align: center; }
-        .leader-info h6 { font-size: 0.75rem; margin: 0; font-weight: 700; color: var(--primary); line-height: 1.2; }
-        .leader-info small { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; }
+        .leader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        
+        /* CSS Unik untuk Lurah */
+        .lurah-card { 
+            border: 3px solid var(--primary-blue) !important; 
+        }
+
+        .leader-img { 
+            height: auto; /* Hapus tinggi statis */
+            object-fit: contain; /* Ganti cover dengan contain agar gambar penuh terlihat kecil */
+            width: 100%; 
+            border-bottom: 3px solid #f1c40f; 
+            max-height: 180px; /* Batasi tinggi maksimum untuk membuatnya "kecil" */
+        }
+        
+        .leader-info { padding: 15px 12px; text-align: center; }
+        .leader-info h6 { font-size: 0.8rem; margin: 0; font-weight: 700; color: var(--primary); line-height: 1.3; }
+        .leader-info small { font-size: 0.65rem; color: #64748b; text-transform: uppercase; font-weight: 600; margin-top: 5px; display: block;}
 
         /* Service Menu */
         .service-card { 
-            border: none; border-radius: 24px; background: white; 
-            padding: 30px 20px; transition: 0.3s; height: 100%;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: none; border-radius: 24px; 
+            background: linear-gradient(135deg, #fffcf0 0%, #fff3cf 100%) !important; /* Gradien Kuning Muda */
+            padding: 30px; /* Sesuaikan padding */
+            transition: all 0.3s ease; height: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         .service-card:hover:not(.disabled-card) { 
             transform: translateY(-8px); 
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 30px -5px rgba(0,51,102,0.1);
             cursor: pointer;
         }
         
+        /* Ikon Bootstrap di Icon Box */
         .icon-box { 
             height: 64px; width: 64px; 
             background: var(--accent-grad); 
             border-radius: 18px; display: flex; align-items: center; 
             justify-content: center; margin-bottom: 18px; color: white;
             box-shadow: 0 10px 15px -3px rgba(243, 156, 18, 0.3);
+            transition: transform 0.3s ease;
         }
-        .icon-box span { font-size: 32px; }
+        .service-card:hover:not(.disabled-card) .icon-box {
+            transform: scale(1.1);
+        }
+        .icon-box i { font-size: 32px; color: inherit; } /* Ikon Bootstrap berukuran 32px */
+
+        /* Ikon khusus 'Segera Hadir' agar gradien latar belakangnya tetap konsisten */
+        .service-card.border-dashed {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e2e8f0 100%) !important;
+            border-style: dashed !important;
+        }
+        .service-card.border-dashed .icon-box {
+            background: #e2e8f0; color: #64748b; box-shadow: none;
+        }
 
         /* Status Offline */
-        .disabled-card { background-color: #f1f5f9; opacity: 0.6; cursor: not-allowed !important; }
-        .offline-badge { font-size: 0.65rem; background: #ef4444; color: white; padding: 2px 8px; border-radius: 10px; margin-top: 5px; }
+        .disabled-card { background-color: #cbd5e1; opacity: 0.7; cursor: not-allowed !important; }
+        .offline-badge { font-size: 0.65rem; background: #ef4444; color: white; padding: 3px 10px; border-radius: 12px; margin-top: 8px; font-weight: 600; letter-spacing: 0.5px;}
 
         /* Footer */
         .footer { background: #0f172a; color: #94a3b8; padding: 60px 0 30px; border-top: 5px solid #f1c40f; }
@@ -92,22 +124,63 @@
         .footer-link { color: #94a3b8; text-decoration: none; transition: 0.3s; }
         .footer-link:hover { color: #f1c40f; }
 
-        /* Overlay */
+        /* Overlays & iframes */
         #appOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; }
         iframe { width: 100%; height: calc(100% - 60px); border: none; }
         
         #loadingOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.95); z-index: 10000; flex-direction: column; align-items: center; justify-content: center;
+            backdrop-filter: blur(5px);
         }
+        
+        /* Modal Keamanan (Pop-up) */
+        .modal-content { border-radius: 24px; border: none; }
+        .modal-header { border-bottom: none; padding: 25px 25px 0; }
+        .modal-footer { border-top: none; padding: 0 25px 25px; }
+        .math-input { font-size: 1.5rem !important; border-radius: 16px !important; border: 2px solid #e2e8f0; text-align: center; font-weight: 700; transition: border-color 0.3s; }
+        .math-input:focus { border-color: #f1c40f; box-shadow: 0 0 0 0.25rem rgba(241, 196, 15, 0.25); }
+        .math-num { font-size: 2.5rem; font-weight: 700; color: var(--primary); }
     </style>
 </head>
 <body>
 
 <div id="loadingOverlay">
-    <div class="spinner-border text-warning mb-3" role="status"></div>
-    <h6 class="fw-bold">Menghubungkan Ke Server...</h6>
+    <div class="spinner-border text-warning mb-3" role="status" style="width: 3rem; height: 3rem;"></div>
+    <h5 class="fw-bold text-dark">Menyiapkan Layanan...</h5>
     <p class="text-muted small">Kelurahan Paseng Digital Service</p>
+</div>
+
+<div class="modal fade" id="securityModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header justify-content-center position-relative">
+                <h5 class="modal-title fw-bold text-dark d-flex align-items-center">
+                    <i class="bi bi-shield-lock text-warning me-2 fs-3"></i> Verifikasi
+                </h5>
+                <button type="button" class="btn-close position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center pt-2 pb-4">
+                <p class="small text-muted mb-4">Selesaikan penjumlahan di bawah ini untuk masuk ke <strong id="targetServiceName" class="text-dark">Layanan</strong>.</p>
+                
+                <div class="d-flex justify-content-center align-items-center mb-3">
+                    <span id="mathNum1" class="math-num">0</span>
+                    <span class="fs-4 mx-3 text-muted">+</span>
+                    <span id="mathNum2" class="math-num">0</span>
+                    <span class="fs-4 mx-3 text-muted">=</span>
+                </div>
+                
+                <input type="number" id="mathAnswer" class="form-control math-input mx-auto" style="width: 120px;" placeholder="?" autocomplete="off" onkeypress="handleEnter(event)">
+                
+                <div id="securityError" class="text-danger small fw-bold mt-3 d-none">
+                    <i class="bi bi-exclamation-circle me-1"></i> Jawaban salah, coba lagi!
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-warning px-5 py-2 rounded-pill fw-bold text-dark shadow-sm w-100" onclick="verifySecurity()">Buka Layanan</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <nav class="navbar sticky-top">
@@ -124,12 +197,12 @@
 
 <section class="hero-section">
     <div class="container">
-        <div class="info-bar">
+        <div class="info-bar shadow-sm">
             <span id="greeting-text" class="fw-bold text-warning">Selamat Datang</span>
-            <span>|</span>
-            <span id="live-clock">00:00:00</span>
-            <span class="d-none d-md-inline">|</span>
-            <span id="live-date" class="d-none d-md-inline"></span>
+            <span class="opacity-50">|</span>
+            <span id="live-clock" class="fw-semibold">00:00:00</span>
+            <span class="d-none d-md-inline opacity-50">|</span>
+            <span id="live-date" class="d-none d-md-inline fw-medium"></span>
         </div>
         <h1 class="display-6 fw-bold mb-3">Selamat Datang di Layanan Digital Kelurahan</h1>
         <p class="lead opacity-75">Solusi administrasi modern untuk masyarakat Paseng</p>
@@ -137,17 +210,17 @@
 </section>
 
 <div class="container leader-container">
-    <div class="row g-3 justify-content-center mb-5">
-        <div class="col-4 col-md-3">
+    <div class="row g-3 justify-content-center mb-5 d-flex align-items-stretch">
+        <div class="col-6 col-md-4">
             <div class="leader-card">
                 <img src="https://lh3.googleusercontent.com/d/17vNhb2YmwQC-KSQ0_Ak_FR1hafMIMqrj" class="leader-img" alt="Wakil">
                 <div class="leader-info">
                     <h6>HERONIMUS MAKAINAS,SE</h6>
-                    <small>Wakil Bupati Sitaro</small>
+                    <small>Wakil Bupati Kepulauan Sitaro</small>
                 </div>
             </div>
         </div>
-        <div class="col-4 col-md-3">
+        <div class="col-6 col-md-4">
             <div class="leader-card">
                 <img src="https://lh3.googleusercontent.com/d/1oRf4wmI5KCLrmog4GmIJjtbFFZ_XasmW" class="leader-img" alt="Bupati">
                 <div class="leader-info">
@@ -156,8 +229,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-4 col-md-3">
-            <div class="leader-card border-warning">
+        <div class="col-6 col-md-4">
+            <div class="leader-card lurah-card">
                 <img src="https://lh3.googleusercontent.com/d/1pP-9F7pJ53j9JurLqaZJr1r-9NBwePIC" class="leader-img" alt="Lurah">
                 <div class="leader-info">
                     <h6>RIO ROLLAND BIDUANG, A.Md</h6>
@@ -169,24 +242,28 @@
 
     <div class="row g-4 mb-5">
         <div class="col-6 col-md-4">
-            <div class="service-card" onclick="openSecureApp('layanan', 'Layanan Publik')">
-                <div class="icon-box"><span class="material-symbols-outlined">badge</span></div>
+            <div class="service-card" onclick="openSecureApp('layanan', 'Layanan Bypass')">
+                <div class="icon-box">
+                    <i class="bi bi-person-badge"></i>
+                </div>
                 <h6 class="fw-bold mb-1 text-center">Layanan Bypass</h6>
                 <small class="text-muted text-center d-none d-md-block">Penerbitan Surat Rekomendasi / Keterangan</small>
-                <small class="text-muted text-center d-none d-md-block">Pembayaran PBB</small>
-                <small class="text-muted text-center d-none d-md-block">Transparansi Anggaran dll</small>
             </div>
         </div>
         <div class="col-6 col-md-4">
             <div class="service-card" onclick="openSecureApp('posyandu', 'SIPANDU')">
-                <div class="icon-box"><span class="material-symbols-outlined">health_and_safety</span></div>
+                <div class="icon-box">
+                    <i class="bi bi-heart-pulse"></i>
+                </div>
                 <h6 class="fw-bold mb-1 text-center">SIPANDU</h6>
                 <small class="text-muted text-center d-none d-md-block">Informasi Layanan Posyandu</small>
             </div>
         </div>
         <div class="col-6 col-md-4">
             <div class="service-card" onclick="openSecureApp('tamu', 'Buku Tamu')">
-                <div class="icon-box"><span class="material-symbols-outlined">history_edu</span></div>
+                <div class="icon-box">
+                    <i class="bi bi-book"></i>
+                </div>
                 <h6 class="fw-bold mb-1 text-center">Buku Tamu</h6>
                 <small class="text-muted text-center d-none d-md-block">Registrasi Kunjungan</small>
             </div>
@@ -194,7 +271,7 @@
         <div class="col-6 col-md-4">
             <div class="service-card" onclick="openSecureApp('bencana', 'Info Bencana Alam')">
                 <div class="icon-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
-                    <span class="material-symbols-outlined">emergency</span>
+                    <i class="bi bi-exclamation-triangle-fill text-white"></i>
                 </div>
                 <h6 class="fw-bold mb-1 text-center">Info Layanan Bencana Alam</h6>
                 <small class="text-muted text-center d-none d-md-block">Informasi Terdampak</small>
@@ -203,17 +280,17 @@
         
         <div class="col-6 col-md-4">
             <div class="service-card disabled-card" onclick="alert('Layanan Aplikasi Android sedang dalam pemeliharaan.')">
-                <div class="icon-box" style="background: #94a3b8; box-shadow: none;">
-                    <span class="material-symbols-outlined">install_mobile</span>
+                <div class="icon-box" style="background: #cbd5e1; box-shadow: none; color: #94a3b8;">
+                    <i class="bi bi-download"></i>
                 </div>
                 <h6 class="fw-bold mb-1 text-center text-secondary">App Android Epas</h6>
                 <span class="offline-badge">OFFLINE</span>
             </div>
         </div>
         <div class="col-6 col-md-4">
-            <div class="service-card border-dashed" style="border: 2px dashed #cbd5e1; background: transparent; cursor: default;">
-                <div class="icon-box" style="background: #e2e8f0; color: #64748b; box-shadow: none;">
-                    <span class="material-symbols-outlined">add_circle</span>
+            <div class="service-card border-dashed" onclick="alert('Layanan baru akan segera hadir!')">
+                <div class="icon-box">
+                    <i class="bi bi-plus-circle"></i>
                 </div>
                 <h6 class="fw-bold mb-1 text-muted text-center">Segera Hadir</h6>
             </div>
@@ -250,18 +327,21 @@
         </div>
         <hr class="my-4 border-secondary opacity-25">
         <div class="text-center small">
-            © 2026 Pemerintah Kelurahan Paseng. Dikembangkan oleh Seksi Pelayanan.
+            © 2026 Pemerintah Kelurahan Paseng. Dikembangkan oleh Seksi
+            Pemeliharaan Pemberdayaan dan Pelayanan ┃ Sandro Maola,SE
         </div>
     </div>
 </footer>
 
 <div id="appOverlay">
-    <div class="d-flex align-items-center justify-content-between p-3 border-bottom shadow-sm">
-        <h6 class="mb-0 fw-bold" id="currentAppName">Memuat Layanan...</h6>
-        <button class="btn btn-sm btn-danger rounded-pill px-4" onclick="closeApp()">Tutup</button>
+    <div class="d-flex align-items-center justify-content-between p-3 border-bottom shadow-sm bg-white">
+        <h6 class="mb-0 fw-bold text-primary" id="currentAppName">Memuat Layanan...</h6>
+        <button class="btn btn-sm btn-outline-danger rounded-pill px-4 fw-bold" onclick="closeApp()">Kembali ke Beranda</button>
     </div>
     <iframe id="appFrame" src="" onload="hideLoading()"></iframe>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     const APPS = {
@@ -271,6 +351,7 @@
         bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec"
     };
 
+    // Fungsi Jam & Tanggal
     function updateClock() {
         const now = new Date();
         const hr = now.getHours();
@@ -283,23 +364,67 @@
     setInterval(updateClock, 1000);
     updateClock();
 
+    let currentTargetKey = "";
+    let currentTargetName = "";
+    let expectedAnswer = 0;
+    
+    const securityModal = new bootstrap.Modal(document.getElementById('securityModal'));
+
     function openSecureApp(key, name) {
+        currentTargetKey = key;
+        currentTargetName = name;
+
+        // Buat soal matematika acak (1-5)
         let n1 = Math.floor(Math.random() * 5) + 1;
         let n2 = Math.floor(Math.random() * 5) + 1;
-        let answer = prompt(`Keamanan: Berapakah ${n1} + ${n2}?`);
+        expectedAnswer = n1 + n2;
 
-        if (parseInt(answer) === (n1 + n2)) {
+        // Masukkan data ke dalam Modal
+        document.getElementById('targetServiceName').innerText = name;
+        document.getElementById('mathNum1').innerText = n1;
+        document.getElementById('mathNum2').innerText = n2;
+        
+        document.getElementById('mathAnswer').value = '';
+        document.getElementById('securityError').classList.add('d-none');
+
+        securityModal.show();
+        
+        setTimeout(() => {
+            document.getElementById('mathAnswer').focus();
+        }, 500);
+    }
+
+    // Fungsi saat tombol "Buka Layanan" di Modal diklik
+    function verifySecurity() {
+        let userAnswer = document.getElementById('mathAnswer').value;
+        
+        if (parseInt(userAnswer) === expectedAnswer) {
+            securityModal.hide();
+            
+            // Tampilkan loading dan buka Iframe
             document.getElementById('loadingOverlay').style.display = 'flex';
-            document.getElementById('currentAppName').innerText = name.toUpperCase();
-            document.getElementById('appFrame').src = APPS[key];
+            document.getElementById('currentAppName').innerText = currentTargetName.toUpperCase();
+            document.getElementById('appFrame').src = APPS[currentTargetKey];
             document.getElementById('appOverlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
-        } else if (answer !== null) {
-            alert("Jawaban salah.");
+        } else {
+            document.getElementById('securityError').classList.remove('d-none');
+            document.getElementById('mathAnswer').value = ''; 
+            document.getElementById('mathAnswer').focus(); 
         }
     }
 
-    function hideLoading() { document.getElementById('loadingOverlay').style.display = 'none'; }
+    function handleEnter(event) {
+        if (event.key === 'Enter') {
+            verifySecurity();
+        }
+    }
+
+    // Navigasi App
+    function hideLoading() { 
+        document.getElementById('loadingOverlay').style.display = 'none'; 
+    }
+    
     function closeApp() {
         document.getElementById('appOverlay').style.display = 'none';
         document.getElementById('appFrame').src = "";
