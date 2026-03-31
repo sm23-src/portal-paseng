@@ -61,15 +61,15 @@
         
         /* CSS Unik untuk Lurah */
         .lurah-card { 
-            border: 3px solid var(--primary-blue) !important; 
+            border: 3px solid var(--primary) !important; 
         }
 
         .leader-img { 
-            height: auto; /* Hapus tinggi statis */
-            object-fit: contain; /* Ganti cover dengan contain agar gambar penuh terlihat kecil */
+            height: auto;
+            object-fit: contain;
             width: 100%; 
             border-bottom: 3px solid #f1c40f; 
-            max-height: 180px; /* Batasi tinggi maksimum untuk membuatnya "kecil" */
+            max-height: 180px;
         }
         
         .leader-info { padding: 15px 12px; text-align: center; }
@@ -79,8 +79,8 @@
         /* Service Menu */
         .service-card { 
             border: none; border-radius: 24px; 
-            background: linear-gradient(135deg, #fffcf0 0%, #fff3cf 100%) !important; /* Gradien Kuning Muda */
-            padding: 30px; /* Sesuaikan padding */
+            background: linear-gradient(135deg, #fffcf0 0%, #fff3cf 100%) !important;
+            padding: 30px;
             transition: all 0.3s ease; height: 100%;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -103,9 +103,8 @@
         .service-card:hover:not(.disabled-card) .icon-box {
             transform: scale(1.1);
         }
-        .icon-box i { font-size: 32px; color: inherit; } /* Ikon Bootstrap berukuran 32px */
+        .icon-box i { font-size: 32px; color: inherit; }
 
-        /* Ikon khusus 'Segera Hadir' agar gradien latar belakangnya tetap konsisten */
         .service-card.border-dashed {
             background: linear-gradient(135deg, #f8f9fa 0%, #e2e8f0 100%) !important;
             border-style: dashed !important;
@@ -351,7 +350,6 @@
         bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec"
     };
 
-    // Fungsi Jam & Tanggal
     function updateClock() {
         const now = new Date();
         const hr = now.getHours();
@@ -374,12 +372,10 @@
         currentTargetKey = key;
         currentTargetName = name;
 
-        // Buat soal matematika acak (1-5)
         let n1 = Math.floor(Math.random() * 5) + 1;
         let n2 = Math.floor(Math.random() * 5) + 1;
         expectedAnswer = n1 + n2;
 
-        // Masukkan data ke dalam Modal
         document.getElementById('targetServiceName').innerText = name;
         document.getElementById('mathNum1').innerText = n1;
         document.getElementById('mathNum2').innerText = n2;
@@ -394,14 +390,12 @@
         }, 500);
     }
 
-    // Fungsi saat tombol "Buka Layanan" di Modal diklik
     function verifySecurity() {
         let userAnswer = document.getElementById('mathAnswer').value;
         
         if (parseInt(userAnswer) === expectedAnswer) {
             securityModal.hide();
             
-            // Tampilkan loading dan buka Iframe
             document.getElementById('loadingOverlay').style.display = 'flex';
             document.getElementById('currentAppName').innerText = currentTargetName.toUpperCase();
             document.getElementById('appFrame').src = APPS[currentTargetKey];
@@ -420,7 +414,6 @@
         }
     }
 
-    // Navigasi App
     function hideLoading() { 
         document.getElementById('loadingOverlay').style.display = 'none'; 
     }
@@ -429,7 +422,33 @@
         document.getElementById('appOverlay').style.display = 'none';
         document.getElementById('appFrame').src = "";
         document.body.style.overflow = 'auto';
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('page')) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        
+
+        if (urlParams.has('page') && urlParams.get('page') === 'admin') {
+
+            const adminUrl = APPS.layanan + "?page=admin";
+
+            document.getElementById('loadingOverlay').style.display = 'flex';
+
+            document.getElementById('currentAppName').innerText = "DASBOR ADMIN LAYANAN";
+
+            document.getElementById('appFrame').src = adminUrl;
+            
+            document.getElementById('appOverlay').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
 </script>
 
 </body>
