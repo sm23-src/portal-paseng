@@ -144,12 +144,14 @@
 </head>
 <body>
 
+<!-- Overlay Loading saat membuka aplikasi -->
 <div id="loadingOverlay">
     <div class="spinner-border text-warning mb-3" role="status" style="width: 3rem; height: 3rem;"></div>
     <h5 class="fw-bold text-dark">Menyiapkan Layanan...</h5>
     <p class="text-muted small">Kelurahan Paseng Digital Service</p>
 </div>
 
+<!-- Modal Verifikasi Keamanan -->
 <div class="modal fade" id="securityModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
         <div class="modal-content shadow-lg">
@@ -182,6 +184,7 @@
     </div>
 </div>
 
+<!-- Navigasi -->
 <nav class="navbar sticky-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
@@ -194,6 +197,7 @@
     </div>
 </nav>
 
+<!-- Bagian Sampul (Hero) -->
 <section class="hero-section">
     <div class="container">
         <div class="info-bar shadow-sm">
@@ -208,6 +212,7 @@
     </div>
 </section>
 
+<!-- Kontainer Utama -->
 <div class="container leader-container">
     <div class="row g-3 justify-content-center mb-5 d-flex align-items-stretch">
         <div class="col-6 col-md-4">
@@ -274,6 +279,29 @@
                 </div>
                 <h6 class="fw-bold mb-1 text-center">Info Layanan Bencana Alam</h6>
                 <small class="text-muted text-center d-none d-md-block">Informasi Terdampak</small>
+            </div>
+        </div>
+        
+
+        <div class="col-6 col-md-4">
+            <div class="service-card" onclick="openSecureApp('bantuan', 'Cek Bantuan Mandiri')">
+                <!-- Kita gunakan warna hijau kebiruan agar berbeda dari yang lain -->
+                <div class="icon-box" style="background: linear-gradient(135deg, #1abc9c, #16a085);">
+                    <i class="bi bi-box2-heart text-white"></i>
+                </div>
+                <h6 class="fw-bold mb-1 text-center">Bantuan Mandiri</h6>
+                <small class="text-muted text-center d-none d-md-block">Cek Status Bantuan</small>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4">
+            <div class="service-card" onclick="openSecureApp('pasengCup', 'Paseng Cup 2026')">
+                <!-- Kita gunakan warna ungu/kebiruan agar meriah -->
+                <div class="icon-box" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                    <i class="bi bi-trophy text-white"></i>
+                </div>
+                <h6 class="fw-bold mb-1 text-center">Paseng Cup 2026</h6>
+                <small class="text-muted text-center d-none d-md-block">Informasi Turnamen</small>
             </div>
         </div>
         
@@ -347,7 +375,9 @@
         layanan: "https://script.google.com/macros/s/AKfycbyRWCEvsphRQqAmcGPPl8bL0XW5j1Nz3OeRM0_zQpdbhpGJX6QCnSpudG2VnZBRkF6p/exec",
         posyandu: "https://script.google.com/macros/s/AKfycbyKM0RCrw3gk-nIWnAd7hl2sa_8xar1XSqgt-n2PHBfmFnJN22GY0Xt4bGnh1uF7CxVDw/exec",
         tamu: "https://script.google.com/macros/s/AKfycbwuNWl8IfSymCmA6gFcYqZDcDFMr2unggIZUX1aApN-5VM3rf1DroAA8r1uHo1JvytBuA/exec",
-        bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec"
+        bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec",
+        bantuan: "https://script.google.com/macros/s/AKfycbxJ0s6Eua25qEpeUXOItASyWPqX3eo-zPJcWx95X9_V_7YuqOkAYjc2V8-DgvSQTMeK/exec", 
+        pasengCup: "https://script.google.com/macros/s/AKfycbyZ_W5adANaRuYgZbzd-RTVYYjFla0H_9TXmVNnJ1nbd7uqvVZRzaEAbvGH0TE2eglvtg/exec"
     };
 
     function updateClock() {
@@ -398,6 +428,14 @@
             
             document.getElementById('loadingOverlay').style.display = 'flex';
             document.getElementById('currentAppName').innerText = currentTargetName.toUpperCase();
+            
+            // Periksa jika link belum diganti
+            if (APPS[currentTargetKey] === "LINK_KAMU_DISINI") {
+                alert("Halo Admin! Link untuk menu ini belum diisi. Silakan edit bagian 'APPS' di dalam kode HTML.");
+                hideLoading();
+                return;
+            }
+
             document.getElementById('appFrame').src = APPS[currentTargetKey];
             document.getElementById('appOverlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -430,20 +468,13 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-
         const urlParams = new URLSearchParams(window.location.search);
         
-
         if (urlParams.has('page') && urlParams.get('page') === 'admin') {
-
             const adminUrl = APPS.layanan + "?page=admin";
-
             document.getElementById('loadingOverlay').style.display = 'flex';
-
             document.getElementById('currentAppName').innerText = "DASBOR ADMIN LAYANAN";
-
             document.getElementById('appFrame').src = adminUrl;
-            
             document.getElementById('appOverlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
