@@ -299,6 +299,7 @@
                     <li class="mb-2"><a href="#" class="footer-link">Profil Kelurahan</a></li>
                     <li class="mb-2"><a href="#" class="footer-link">Kontak Darurat</a></li>
                     <li class="mb-2"><a href="#" class="footer-link">Info Pengembang</a></li>
+                    <li class="mb-2"><a href="?page=admin" class="footer-link text-warning fw-bold"><i class="bi bi-shield-lock"></i> Panel Admin</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
@@ -413,7 +414,7 @@
         tamu: "https://script.google.com/macros/s/AKfycbwuNWl8IfSymCmA6gFcYqZDcDFMr2unggIZUX1aApN-5VM3rf1DroAA8r1uHo1JvytBuA/exec",
         bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec",
         bantuan: "https://script.google.com/macros/s/AKfycbxJ0s6Eua25qEpeUXOItASyWPqX3eo-zPJcWx95X9_V_7YuqOkAYjc2V8-DgvSQTMeK/exec", 
-        pasengCup: "https://script.google.com/macros/s/AKfycbyZ_W5adANaRuYgZbzd-RTVYYjFla0H_9TXmVNnJ1nbd7uqvVZRzaEAbvGH0TE2eglvtg/exec"
+        pasengCup: "https://script.google.com/macros/s/AKfycbyZ_W5adANaRuYgZbzd-RTVYYjFla0H_9TXmVNnJ1nbd7uqvVZRzaEAbvGH0TE2eglvtg/exec",
         admin: "https://script.google.com/macros/s/AKfycbyRWCEvsphRQqAmcGPPl8bL0XW5j1Nz3OeRM0_zQpdbhpGJX6QCnSpudG2VnZBRkF6p/exec?page=admin"
     };
     
@@ -623,6 +624,17 @@
                 btnSubmit.disabled = false; document.getElementById('btnText').innerText = 'Kirim Pesan'; document.getElementById('btnSpinner').classList.add('d-none');
                 setTimeout(() => alertBox.classList.add('d-none'), 5000);
             });
+    });
+
+    // --- PENDETEKSI URL UNTUK PANEL ADMIN ---
+    window.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('page') === 'admin') {
+            // Hilangkan ?page=admin dari URL agar rapi (opsional)
+            window.history.replaceState({}, document.title, window.location.pathname);
+            // Buka layanan admin dengan verifikasi keamanan
+            openSecureApp('admin', 'Panel Administrator');
+        }
     });
 </script>
 
