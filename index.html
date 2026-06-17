@@ -136,7 +136,7 @@
 <nav class="navbar sticky-top animate-up">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="https://lh3.googleusercontent.com/d/13tYjR3hoiC_Q1TO3i3CLzhDhGdPF9e5Q" alt="Logo" height="50" class="me-3 drop-shadow">
+            <img src="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm" alt="Logo" height="50" class="me-3 drop-shadow">
             <div>
                 <h6 class="mb-0 fw-bold text-dark" style="letter-spacing: 0.5px;">KELURAHAN PASENG</h6>
                 <small class="text-muted fw-medium" style="font-size: 0.75rem;">Portal Pelayanan Terpadu</small>
@@ -477,7 +477,8 @@
                 } else {
                     data.gallery.forEach((item, index) => {
                         let activeClass = index === 0 ? 'active' : '';
-                        let safeBerita = item.berita.replace(/"/g, '"').replace(/'/g, ''');
+                        // PERBAIKAN SYNTAX ERROR DI SINI
+                        let safeBerita = item.berita.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
                         galleryDiv.innerHTML += `
                             <div class="carousel-item ${activeClass}" data-bs-interval="4000">
                                 <div class="gallery-img-container" onclick="openNews('${item.judul}', '${safeBerita}')">
@@ -643,9 +644,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('page') === 'admin') {
-            // Hilangkan ?page=admin dari URL agar rapi (opsional)
             window.history.replaceState({}, document.title, window.location.pathname);
-            // Buka layanan admin dengan verifikasi keamanan
             openSecureApp('admin', 'Panel Administrator');
         }
     });
