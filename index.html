@@ -3,669 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Sistem Layanan Digital Kelurahan Paseng</title>
-    <meta name="description" content="Memudahkan Masyarakat untuk mengakses layanan secara online. Kelurahan Paseng Mendigitalisasikan Birokrasi agar efesien, transparan, mudah dan cepat.">
-    
-    <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm">
-    <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm">
-    <meta property="og:image" content="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm">
-    <meta property="og:title" content="Sistem Layanan Digital Kelurahan Paseng — Berkarya Tanpa Batas">
-    <meta property="og:description" content="Mendigitalisasikan birokrasi demi mewujudkan pelayanan kelurahan yang efisien dan transparan.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bykelpas.online">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
+    <title>Pemeliharaan Sistem - Digital Kelurahan Paseng</title>
     <style>
-        :root { 
-            --primary: #0f172a; 
-            --accent: #f59e0b;
-            --accent-hover: #d97706;
-            --surface: #ffffff;
-            --bg-light: #f8fafc;
-            --text-main: #334155;
-            --text-muted: #64748b;
+        :root {
+            --primary-color: #0056b3;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --wa-color: #25D366;
+            --wa-hover: #128C7E;
         }
 
-        body { 
-            background-color: var(--bg-light); 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            color: var(--text-main);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
         }
 
-        /* Loading Screen Modern */
-        #loadingOverlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.98); z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(15px); transition: opacity 0.5s;
-        }
-        .loader-ring { width: 60px; height: 60px; border: 5px solid #f1f5f9; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* Animasi Masuk */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-        .d-1 { animation-delay: 0.1s; } .d-2 { animation-delay: 0.2s; } .d-3 { animation-delay: 0.3s; }
-
-        /* Navbar & Ticker (Diperbaiki Teks Bertumpuk) */
-        .running-text-wrapper { background: var(--primary); color: white; padding: 8px 0; font-size: 0.85rem; }
-        .marquee-container { flex-grow: 1; overflow: hidden; white-space: nowrap; width: 100%; }
-        .marquee-content { display: inline-block; padding-left: 100%; animation: marquee 25s linear infinite; }
-        .marquee-content p { display: inline-block; margin: 0; letter-spacing: 0.5px; }
-        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-        
-        /* Navbar Transparan ke Solid */
-        .navbar { transition: all 0.4s ease; background: transparent; padding: 15px 0; z-index: 1020; }
-        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 10px 0; }
-        .navbar.scrolled .nav-title { color: var(--primary) !important; }
-        .nav-title { color: white; transition: color 0.4s; }
-
-        /* Hero Section Baru */
-        .hero-section { 
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.95)), url('https://lh3.googleusercontent.com/d/17tqw43CYnfK98rIau655abGQNdxEDr_F');
-            background-size: cover; background-position: center; background-attachment: fixed; 
-            padding: 120px 0 220px; text-align: center; color: white; position: relative;
-        }
-        .hero-date-badge {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 24px; border-radius: 50px; display: inline-flex; gap: 15px; margin-bottom: 30px;
-            backdrop-filter: blur(10px); font-size: 0.85rem; font-weight: 600;
+        .container {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 600px;
+            width: 90%;
+            margin-bottom: 30px;
         }
 
-        /* Floating Service Menu */
-        .services-container { margin-top: -140px; position: relative; z-index: 10; }
-        .service-card { 
-            background: var(--surface); border-radius: 24px; padding: 30px 20px; height: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: all 0.4s ease; border: 1px solid rgba(0,0,0,0.02);
-            display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer;
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 20px;
         }
-        .service-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); }
-        .service-icon { 
-            width: 65px; height: 65px; border-radius: 20px; display: flex; align-items: center; justify-content: center;
-            font-size: 28px; margin-bottom: 20px; transition: 0.3s;
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 15px;
         }
-        .service-card:hover .service-icon { transform: scale(1.1) rotate(5deg); }
-        
-        .ic-1 { background: #eff6ff; color: #3b82f6; }
-        .ic-2 { background: #fef2f2; color: #ef4444; }
-        .ic-3 { background: #fefce8; color: #eab308; }
-        .ic-4 { background: #fdf2f8; color: #ec4899; }
-        .ic-5 { background: #f0fdf4; color: #22c55e; }
-        .ic-6 { background: #f5f3ff; color: #8b5cf6; }
 
-        /* Pimpinan Cards Clean */
-        .leader-card { background: white; border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-align: center; }
-        .leader-img { height: 180px; width: 100%; object-fit: contain; background: #f1f5f9; border-bottom: 3px solid var(--accent); }
-        .lurah-card .leader-img { border-bottom-color: #3b82f6; } 
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 25px;
+        }
 
-        /* Statistik Minimalis */
-        .stat-card { padding: 20px; text-align: center; }
-        .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1.2; }
-        .stat-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .datetime-box {
+            background-color: #e9f2fb;
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 30px;
+        }
 
-        /* Galeri Dinamis Modern */
-        .section-header { margin-bottom: 40px; position: relative; }
-        .section-header h3 { font-weight: 800; color: var(--primary); font-size: 1.5rem; }
-        .section-header span { display: inline-block; width: 50px; height: 4px; background: var(--accent); border-radius: 2px; }
-        .gallery-item { border-radius: 24px; overflow: hidden; position: relative; height: 320px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.05);}
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .gallery-item:hover img { transform: scale(1.08); }
-        .gallery-overlay { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(15,23,42,0.95), transparent); padding: 40px 20px 20px; color: white; }
+        .datetime-box #waktu {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0;
+        }
 
-        /* FAQ Clean */
-        .accordion-item { border: 1px solid #f1f5f9; border-radius: 16px !important; margin-bottom: 12px; overflow: hidden; background: white; }
-        .accordion-button { font-weight: 600; padding: 18px 20px; color: var(--text-main); }
-        .accordion-button:not(.collapsed) { background: #fffbeb; color: var(--accent-hover); box-shadow: none; }
-        .accordion-button:focus { box-shadow: none; }
-        
-        /* Modals & FAB */
-        .fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 15px; }
-        .fab-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-        .fab-btn:hover { transform: scale(1.1) translateY(-5px); }
-        .fab-wa { background: #25D366; }
-        .fab-feedback { background: var(--accent); }
-        
-        .modal-content { border-radius: 24px; border: none; }
-        .math-box { background: #f8fafc; border-radius: 16px; padding: 15px; font-size: 2rem; font-weight: 800; color: var(--primary); letter-spacing: 2px; }
-        .math-input { font-size: 1.5rem !important; text-align: center; border-radius: 12px !important; border: 2px solid #e2e8f0; font-weight: 700; height: 60px;}
-        .math-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1); }
+        .wa-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--wa-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
 
-        /* Footer */
-        .footer { background: var(--primary); color: #cbd5e1; padding: 80px 0 30px; }
-        .footer-title { color: white; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.5px; }
-        .footer a { color: #cbd5e1; text-decoration: none; transition: 0.3s; display: inline-block; }
-        .footer a:hover { color: var(--accent); transform: translateX(5px); }
-        .social-links a { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; }
-        .social-links a:hover { background: var(--accent); color: white; transform: translateY(-3px); }
+        .wa-btn:hover {
+            background-color: var(--wa-hover);
+        }
 
-        /* iFrame Overlay */
-        #appOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-light); z-index: 9999; }
-        iframe { width: 100%; height: calc(100% - 65px); border: none; background: white;}
+        .wa-btn svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: currentColor;
+        }
+
+        footer {
+            font-size: 13px;
+            color: #777;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-top: 1px solid #ddd;
+            line-height: 1.5;
+        }
+
+        footer strong {
+            color: #444;
+        }
     </style>
 </head>
 <body>
 
-<div id="loadingOverlay">
-    <div class="loader-ring"></div>
-    <h5 class="fw-bold text-dark mb-1">Mempersiapkan Portal</h5>
-    <p class="text-muted small">Sinkronisasi data Kelurahan Paseng...</p>
-</div>
-
-<div class="running-text-wrapper">
-    <div class="container d-flex align-items-center">
-        <span class="badge bg-white text-dark me-3 fw-bold px-2 py-1 flex-shrink-0" style="font-size: 0.7rem;">INFO</span>
-        <div class="marquee-container">
-            <div class="marquee-content">
-                <p><i class="bi bi-info-circle-fill text-warning me-1"></i> Selamat datang di Sistem Layanan Digital Kelurahan Paseng. Birokrasi Efisien, Transparan & Cepat. | Pendaftaran turnamen Paseng Cup 2026 dibuka di menu layanan.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<nav class="navbar fixed-top animate-up" id="mainNav" style="top: 32px;">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm" alt="Logo" height="45" class="me-3">
-            <div>
-                <h6 class="mb-0 fw-bold nav-title" style="letter-spacing: 0.5px;">KELURAHAN PASENG</h6>
-                <small class="nav-title opacity-75 d-block" style="font-size: 0.7rem; margin-top: -2px;">Kec. Siau Barat</small>
-            </div>
+        <img src="https://lh3.googleusercontent.com/d/1AL0Gn00C1huGJjYFO5-oc-XlnqEPwKwx" alt="Logo Kelurahan Paseng" class="logo">
+
+        <h1>Pemberitahuan Pemeliharaan</h1>
+        
+        <p>Mohon maaf untuk layanan Digital Kelurahan Paseng sedang dalam pemeliharaan sistem.</p>
+
+        <div class="datetime-box">
+            <p id="waktu">Memuat waktu...</p>
+        </div>
+
+        <p>Untuk info lebih lanjut silahkan menghubungi Customer Service kami melalui tombol di bawah ini:</p>
+
+        <a href="https://wa.me/6282291781523" class="wa-btn" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24">
+                <path d="M12.031 21c-1.636 0-3.238-.432-4.654-1.246l-.334-.194-3.46.907.925-3.375-.213-.338A9.014 9.014 0 013 11.979c0-4.962 4.04-9 9.031-9a8.956 8.956 0 016.388 2.64A8.966 8.966 0 0121 11.986c0 4.962-4.04 9-9.031 9h.062zM12.031 4.792c-3.957 0-7.184 3.231-7.184 7.188 0 1.266.331 2.502.959 3.593l.115.2-1.42 5.178 5.293-1.388.192.114a7.197 7.197 0 003.541.933c3.959 0 7.186-3.231 7.186-7.188 0-1.921-.749-3.727-2.107-5.086A7.126 7.126 0 0012.031 4.792zm3.926 9.805c-.215-.108-1.272-.628-1.468-.7-.196-.072-.34-.108-.483.108-.143.216-.554.7-.679.844-.125.144-.251.162-.466.054-.215-.108-.908-.335-1.73-1.071-.64-.572-1.072-1.278-1.197-1.494-.125-.216-.013-.332.095-.44.097-.097.215-.252.323-.378.107-.126.143-.216.215-.36.072-.144.036-.27-.018-.378-.054-.108-.483-1.163-.661-1.594-.175-.418-.352-.361-.483-.368-.125-.007-.269-.007-.412-.007-.143 0-.376.054-.573.27-.197.216-.752.735-.752 1.793s.77 2.081.877 2.225c.108.144 1.517 2.315 3.676 3.245.513.221.913.353 1.226.452.514.163.982.14 1.35.085.412-.062 1.272-.519 1.451-1.02.179-.501.179-.931.125-1.02-.054-.089-.197-.144-.412-.252z"/>
+            </svg>
+            Hubungi Customer Service
         </a>
     </div>
-</nav>
 
-<section class="hero-section">
-    <div class="container animate-up d-1">
-        <div class="hero-date-badge">
-            <span id="greeting-text" class="text-warning">Memuat Waktu...</span>
-            <span class="opacity-50">|</span>
-            <span id="live-clock">00:00:00</span>
-            <span class="d-none d-md-inline opacity-50">|</span>
-            <span id="live-date" class="d-none d-md-inline"></span>
-        </div>
-        <h1 class="display-4 fw-bolder mb-3">Layanan Digital Terpadu</h1>
-        <p class="lead opacity-75 fw-medium mx-auto" style="max-width: 600px;">Solusi cerdas administrasi pemerintahan untuk masyarakat Kelurahan Paseng yang lebih maju.</p>
-    </div>
-</section>
+    <footer>
+        Sistem Layanan Digital Kelurahan Paseng Kec. Siau Barat Kab. Kep. Siau Tagulandang Biaro<br>
+        Pengembang Kepala Seksi Pemeliharaan, Pelayanan dan Pemberdayaan | <strong>Sandro Maola, SE</strong>
+    </footer>
 
-<div class="container services-container mb-5">
-    <div class="row g-4 animate-up d-2">
-        <div class="col-6 col-lg-4">
-            <div class="service-card" onclick="openSecureApp('layanan', 'Layanan Bypass')">
-                <div class="service-icon ic-1"><i class="bi bi-file-earmark-text-fill"></i></div>
-                <h6 class="fw-bold mb-1">Layanan Bypass</h6>
-                <small class="text-muted d-none d-md-block">Penerbitan Surat & Keterangan</small>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4">
-            <div class="service-card" onclick="openSecureApp('posyandu', 'SIPANDU')">
-                <div class="service-icon ic-2"><i class="bi bi-balloon-heart-fill"></i></div>
-                <h6 class="fw-bold mb-1">SIPANDU</h6>
-                <small class="text-muted d-none d-md-block">Kesehatan & Posyandu</small>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4">
-            <div class="service-card" onclick="openSecureApp('tamu', 'Buku Tamu')">
-                <div class="service-icon ic-3"><i class="bi bi-book-half"></i></div>
-                <h6 class="fw-bold mb-1">Buku Tamu</h6>
-                <small class="text-muted d-none d-md-block">Registrasi Kunjungan Digital</small>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4">
-            <div class="service-card" onclick="openSecureApp('bencana', 'Info Bencana Alam')">
-                <div class="service-icon ic-4"><i class="bi bi-shield-fill-exclamation"></i></div>
-                <h6 class="fw-bold mb-1">Info Bencana</h6>
-                <small class="text-muted d-none d-md-block">Laporan & Data Terdampak</small>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4">
-            <div class="service-card" onclick="openSecureApp('bantuan', 'Cek Bantuan Mandiri')">
-                <div class="service-icon ic-5"><i class="bi bi-box2-heart-fill"></i></div>
-                <h6 class="fw-bold mb-1">Bantuan Mandiri</h6>
-                <small class="text-muted d-none d-md-block">Pengecekan Status Penerima</small>
-            </div>
-        </div>
-        <div class="col-6 col-lg-4">
-            <div class="service-card" onclick="openSecureApp('pasengCup', 'Paseng Cup 2026')">
-                <div class="service-icon ic-6"><i class="bi bi-trophy-fill"></i></div>
-                <h6 class="fw-bold mb-1">Paseng Cup 2026</h6>
-                <small class="text-muted d-none d-md-block">Informasi Turnamen Resmi</small>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section class="py-5">
-    <div class="container animate-up d-3">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="section-header">
-                    <h3>Pimpinan Daerah dan Pimpinan Kelurahan</h3>
-                    <span></span>
-                </div>
-                <div class="row g-3">
-                    <div class="col-6">
-                        <div class="leader-card p-3">
-                            <img src="https://lh3.googleusercontent.com/d/17vNhb2YmwQC-KSQ0_Ak_FR1hafMIMqrj" class="leader-img rounded-3 mb-3" alt="Wakil">
-                            <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.85rem;">HERONIMUS MAKAINAS, SE</h6>
-                            <small class="text-muted" style="font-size: 0.75rem;">Plt. Bupati Kepulauan Sitaro</small>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="leader-card lurah-card p-3">
-                            <img src="https://lh3.googleusercontent.com/d/1pP-9F7pJ53j9JurLqaZJr1r-9NBwePIC" class="leader-img rounded-3 mb-3" alt="Lurah">
-                            <h6 class="fw-bold mb-0 text-primary" style="font-size: 0.85rem;">RIO ROLLAND BIDUANG, A.Md</h6>
-                            <small class="text-muted" style="font-size: 0.75rem;">Lurah Paseng</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <script>
+        function updateJam() {
+            const sekarang = new Date();
             
-            <div class="col-lg-5 offset-lg-1">
-                <div class="section-header">
-                    <h3>Data Statistik</h3>
-                    <span></span>
-                </div>
-                <div class="row g-4" id="statsContainer">
-                    </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-5 bg-white border-top">
-    <div class="container">
-        <div class="row g-5">
-            <div class="col-lg-6">
-                <div class="section-header">
-                    <h3>Galeri Kegiatan</h3>
-                    <span></span>
-                </div>
-                <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="galleryContainer">
-                        </div>
-                    <div class="mt-3 d-flex justify-content-end gap-2">
-                        <button class="btn btn-light rounded-circle" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev"><i class="bi bi-chevron-left"></i></button>
-                        <button class="btn btn-light rounded-circle" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next"><i class="bi bi-chevron-right"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="section-header">
-                    <h3>Pusat Bantuan (FAQ)</h3>
-                    <span></span>
-                </div>
-                <div class="accordion shadow-sm" id="faqContainer" style="border-radius: 16px;">
-                    </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-5">
-    <div class="container">
-        <div class="text-center mb-5 section-header">
-            <h3 class="mx-auto">Suara Warga Paseng</h3>
-            <span class="mx-auto" style="display: block;"></span>
-        </div>
-        
-        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner px-md-5" id="commentsContainer">
-                <div class="col-12 text-center my-4" id="commentsLoading">
-                    <div class="spinner-border text-warning" role="status"></div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span></button>
-            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next"><span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span></button>
-        </div>
-    </div>
-</section>
-
-<footer class="footer">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-md-5 pe-md-5">
-                <img src="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm" alt="Logo" height="50" class="mb-3 opacity-75">
-                <h5 class="footer-title mb-2">Pemerintah Kelurahan Paseng</h5>
-                <p class="small opacity-75 lh-lg mb-4">Pusat pelayanan digital terpadu. Membangun tata kelola birokrasi pemerintahan yang inovatif, transparan, dan akuntabel di Kabupaten Sitaro.</p>
-                <div class="social-links fs-5">
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-youtube"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <h6 class="footer-title">Tautan Akses</h6>
-                <ul class="list-unstyled small opacity-75 lh-lg">
-                    <li class="mb-2"><a href="#">Profil Kelurahan</a></li>
-                    <li class="mb-2"><a href="#">Kontak Darurat</a></li>
-                    <li class="mb-2"><a href="#">Info Pengembang</a></li>
-                    <li class="mb-2 mt-3"><a href="?page=admin" class="text-warning fw-bold"><i class="bi bi-shield-lock-fill me-1"></i> Panel Admin</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h6 class="footer-title">Hubungi Kami</h6>
-                <ul class="list-unstyled small opacity-75 lh-lg">
-                    <li class="mb-3 d-flex"><i class="bi bi-geo-alt-fill text-warning me-3 mt-1"></i> <span>Jl. Utama Paseng, Kec. Siau Barat, Kab. Kepulauan Sitaro</span></li>
-                    <li class="mb-3 d-flex"><i class="bi bi-envelope-fill text-warning me-3 mt-1"></i> <span>epaselektronikpaseng@gmail.com</span></li>
-                    <li class="mb-3 d-flex"><i class="bi bi-telephone-fill text-warning me-3 mt-1"></i> <span>0813 (Admin)</span></li>
-                </ul>
-            </div>
-        </div>
-        <hr class="mt-5 mb-4 border-secondary opacity-25">
-        <div class="text-center small opacity-50">
-            © 2026 Kelurahan Paseng. Dikembangkan oleh Kasi Pemeliharaan, Pemberdayaan & Pelayanan ┃ Sandro Maola, SE
-        </div>
-    </div>
-</footer>
-
-<div class="fab-container">
-    <a href="https://wa.me/6282291781523?text=Halo%20Admin..." target="_blank" class="fab-btn fab-wa text-decoration-none" title="Chat WhatsApp">
-        <i class="bi bi-whatsapp"></i>
-    </a>
-    <button class="fab-btn fab-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal" title="Kirim Masukan">
-        <i class="bi bi-chat-dots-fill"></i>
-    </button>
-</div>
-
-<div class="modal fade" id="newsModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header border-0 pb-0 pt-4 px-4">
-                <h4 class="modal-title fw-bold text-dark" id="newsTitle">Judul</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body px-4 pb-5 pt-3 text-secondary lh-lg">
-                <img id="newsImage" src="" alt="Gambar Berita" class="img-fluid rounded-4 mb-4 shadow-sm w-100" style="object-fit: cover; max-height: 400px; display: none;">
-                <div id="newsContent" style="font-size: 0.95rem;"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="securityModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-        <div class="modal-content">
-            <div class="modal-header border-0 pb-0 justify-content-center">
-                <button type="button" class="btn-close position-absolute end-0 top-0 m-3" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body text-center pt-2 pb-4 px-4">
-                <div class="mb-3">
-                    <i class="bi bi-shield-lock-fill text-warning" style="font-size: 3rem;"></i>
-                </div>
-                <h5 class="fw-bold text-dark mb-1">Verifikasi Akses</h5>
-                <p class="small text-muted mb-4">Selesaikan penjumlahan untuk membuka <br><strong class="text-primary" id="targetServiceName">Layanan</strong>.</p>
-                
-                <div class="math-box mb-3 d-flex align-items-center justify-content-center gap-2 shadow-sm">
-                    <span id="mathNum1">0</span> <span class="text-muted">+</span> <span id="mathNum2">0</span> <span class="text-muted">=</span>
-                </div>
-                <input type="number" id="mathAnswer" class="form-control math-input mb-2" placeholder="?" autocomplete="off" onkeypress="handleEnter(event)">
-                <div id="securityError" class="text-danger small fw-bold d-none"><i class="bi bi-exclamation-circle-fill me-1"></i> Jawaban keliru!</div>
-            </div>
-            <div class="modal-footer border-0 pt-0 justify-content-center px-4 pb-4">
-                <button type="button" class="btn btn-warning w-100 py-2 rounded-3 fw-bold text-dark" onclick="verifySecurity()">Buka Layanan</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="feedbackModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content p-2">
-            <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold"><i class="bi bi-envelope-paper-heart text-warning me-2"></i> Kirim Masukan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form id="feedbackForm" name="google-sheet-feedback">
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Nama Lengkap</label>
-                        <input type="text" class="form-control bg-light border-0 px-3 py-2" name="nama" required placeholder="Cth: Anton Murnawan">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Kontak (No. HP / Email)</label>
-                        <input type="text" class="form-control bg-light border-0 px-3 py-2" name="kontak" required placeholder="Cth: 08123456xxxx">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label small fw-bold">Pesan / Saran</label>
-                        <textarea class="form-control bg-light border-0 px-3 py-2" name="pesan" rows="4" required placeholder="Tuliskan ide atau saran Anda..."></textarea>
-                    </div>
-                    <div id="feedbackAlert" class="alert d-none small fw-medium"></div>
-                    <button type="submit" id="btnSubmitFeedback" class="btn btn-warning w-100 py-2 rounded-3 fw-bold">
-                        <span id="btnText">Kirim Sekarang</span>
-                        <div id="btnSpinner" class="spinner-border spinner-border-sm ms-2 d-none"></div>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="appOverlay">
-    <div class="d-flex align-items-center justify-content-between px-4 shadow-sm bg-white" style="height: 65px;">
-        <h6 class="mb-0 fw-bold text-primary d-flex align-items-center" id="currentAppName">
-            <div class="spinner-grow spinner-grow-sm text-warning me-2"></div> Memuat Sistem...
-        </h6>
-        <button class="btn btn-sm btn-light text-danger fw-bold rounded-pill px-3" onclick="closeApp()"><i class="bi bi-x-lg me-1"></i> Tutup</button>
-    </div>
-    <iframe id="appFrame" src="" allow="camera; microphone; fullscreen" onload="hideLoading()"></iframe>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    // --- DATABASE & APP LINKS ---
-    const APPS = {
-        layanan: "https://script.google.com/macros/s/AKfycbyRWCEvsphRQqAmcGPPl8bL0XW5j1Nz3OeRM0_zQpdbhpGJX6QCnSpudG2VnZBRkF6p/exec",
-        posyandu: "https://script.google.com/macros/s/AKfycbyKM0RCrw3gk-nIWnAd7hl2sa_8xar1XSqgt-n2PHBfmFnJN22GY0Xt4bGnh1uF7CxVDw/exec",
-        tamu: "https://script.google.com/macros/s/AKfycbwuNWl8IfSymCmA6gFcYqZDcDFMr2unggIZUX1aApN-5VM3rf1DroAA8r1uHo1JvytBuA/exec",
-        bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec",
-        bantuan: "https://script.google.com/macros/s/AKfycbxJ0s6Eua25qEpeUXOItASyWPqX3eo-zPJcWx95X9_V_7YuqOkAYjc2V8-DgvSQTMeK/exec", 
-        pasengCup: "https://script.google.com/macros/s/AKfycbyZ_W5adANaRuYgZbzd-RTVYYjFla0H_9TXmVNnJ1nbd7uqvVZRzaEAbvGH0TE2eglvtg/exec",
-        admin: "https://script.google.com/macros/s/AKfycbyRWCEvsphRQqAmcGPPl8bL0XW5j1Nz3OeRM0_zQpdbhpGJX6QCnSpudG2VnZBRkF6p/exec?page=admin"
-    };
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzCyhf2hAuTlWlBKD9EfTNPdgx8qLtJio15bFMB2b2b5MynJZkPDZdMvL9Qj0Xhoq22AA/exec';
-
-    // --- UI UX LOGIC ---
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('mainNav');
-        if (window.scrollY > 50) { nav.classList.add('scrolled'); nav.style.top = '0'; } 
-        else { nav.classList.remove('scrolled'); nav.style.top = '32px'; }
-    });
-
-    setInterval(() => {
-        const now = new Date(); const hr = now.getHours();
-        const greet = hr < 11 ? "Selamat Pagi" : hr < 15 ? "Selamat Siang" : hr < 18 ? "Selamat Sore" : "Selamat Malam";
-        document.getElementById('greeting-text').innerText = greet;
-        document.getElementById('live-clock').innerText = now.toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
-        document.getElementById('live-date').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-    }, 1000);
-
-    // --- LOGIKA FETCH DATA ---
-    async function initData() {
-        try {
-            const response = await fetch(scriptURL);
-            const data = await response.json();
+            // Pengaturan nama hari dan bulan dalam Bahasa Indonesia
+            const hariArr = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const bulanArr = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
             
-            // Render Statistik
-            const statsDiv = document.getElementById('statsContainer');
-            if(data.stats?.length) {
-                statsDiv.innerHTML = data.stats.map(s => `
-                    <div class="col-6">
-                        <div class="stat-card border rounded-4 bg-white shadow-sm">
-                            <div class="stat-num counter" data-target="${s.jumlah}">0</div>
-                            <div class="stat-label mt-2">${s.kategori}</div>
-                        </div>
-                    </div>`).join('');
-                animateCounters();
-            }
-
-            // Render Galeri (Disesuaikan agar mengirim gambar ke fungsi openNews)
-            const galDiv = document.getElementById('galleryContainer');
-            if(data.gallery?.length) {
-                galDiv.innerHTML = data.gallery.map((g, i) => {
-                    const safeDesc = g.berita.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-                    return `
-                    <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                        <div class="gallery-item" onclick="openNews('${g.judul}', '${safeDesc}', '${g.foto}')">
-                            <img src="${g.foto}" alt="${g.judul}">
-                            <div class="gallery-overlay">
-                                <h5 class="fw-bold mb-1">${g.judul}</h5>
-                                <span class="text-warning small fw-bold">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
-                            </div>
-                        </div>
-                    </div>`;
-                }).join('');
-            } else { galDiv.innerHTML = '<div class="text-center p-5 text-muted border rounded-4 bg-light">Belum ada galeri.</div>'; }
-
-            // Render FAQ
-            const faqDiv = document.getElementById('faqContainer');
-            if(data.faq?.length) {
-                faqDiv.innerHTML = data.faq.map((f, i) => `
-                    <div class="accordion-item">
-                        <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f${i}">${f.tanya}</button></h2>
-                        <div id="f${i}" class="accordion-collapse collapse" data-bs-parent="#faqContainer">
-                            <div class="accordion-body text-muted small">${f.jawab}</div>
-                        </div>
-                    </div>`).join('');
-            } else { faqDiv.innerHTML = '<div class="p-4 text-center text-muted">Belum ada FAQ.</div>'; }
-
-            // Render Testimoni (Diperbaiki rata tengah)
-            const commDiv = document.getElementById('commentsContainer');
-            if(data.comments?.length) {
-                commDiv.innerHTML = data.comments.map((c, i) => `
-                    <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                        <div class="bg-white p-4 rounded-4 shadow-sm border mx-auto" style="max-width: 650px;">
-                            <p class="fst-italic text-muted mb-4 text-center fs-6 lh-lg">"${c.pesan}"</p>
-                            <div class="d-flex align-items-center justify-content-center flex-column text-center">
-                                <div class="bg-warning text-dark rounded-circle fw-bold d-flex align-items-center justify-content-center mb-2" style="width:45px; height:45px; font-size: 1.1rem;">${c.nama.charAt(0).toUpperCase()}</div>
-                                <div>
-                                    <h6 class="mb-0 fw-bold text-dark">${c.nama}</h6>
-                                    <small class="text-muted" style="font-size: 0.75rem;">${c.tanggal}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`).join('');
-            } else { commDiv.innerHTML = '<div class="text-center p-4">Belum ada suara warga.</div>'; }
-
-        } catch (err) {
-            console.error('Error fetching data:', err);
-        } finally {
-            const loader = document.getElementById('loadingOverlay');
-            loader.style.opacity = '0';
-            setTimeout(() => loader.style.display = 'none', 500);
-        }
-    }
-    window.addEventListener('DOMContentLoaded', initData);
-
-    // Animasi Angka
-    function animateCounters() {
-        document.querySelectorAll('.counter').forEach(el => {
-            const updateCount = () => {
-                const target = +el.getAttribute('data-target'); const count = +el.innerText;
-                if (count < target) { el.innerText = Math.ceil(count + (target / 30)); setTimeout(updateCount, 30); } 
-                else { el.innerText = target; }
-            };
-            const rect = el.getBoundingClientRect();
-            if(rect.top < window.innerHeight && el.innerText == '0') updateCount();
-        });
-    }
-    window.addEventListener('scroll', animateCounters);
-
-    // Modals (Pop-up Berita yang disesuaikan untuk menampilkan Foto)
-    const newsModal = new bootstrap.Modal(document.getElementById('newsModal'));
-    function openNews(judul, isi, foto) { 
-        document.getElementById('newsTitle').innerText = judul; 
-        document.getElementById('newsContent').innerText = isi; 
-        
-        const imgEl = document.getElementById('newsImage');
-        if (foto && foto !== 'undefined' && foto !== '') {
-            imgEl.src = foto;
-            imgEl.style.display = 'block';
-        } else {
-            imgEl.style.display = 'none';
-        }
-        
-        newsModal.show(); 
-    }
-
-    // Security Logic
-    let curKey = "", curName = "", expectedAns = 0;
-    const secModal = new bootstrap.Modal(document.getElementById('securityModal'));
-
-    function openSecureApp(key, name) {
-        curKey = key; curName = name;
-        let n1 = Math.floor(Math.random() * 5) + 1; let n2 = Math.floor(Math.random() * 5) + 1; expectedAns = n1 + n2;
-        document.getElementById('targetServiceName').innerText = name;
-        document.getElementById('mathNum1').innerText = n1; document.getElementById('mathNum2').innerText = n2;
-        const input = document.getElementById('mathAnswer');
-        input.value = ''; input.classList.remove('is-invalid');
-        document.getElementById('securityError').classList.add('d-none');
-        secModal.show(); setTimeout(() => input.focus(), 500);
-    }
-
-    function verifySecurity() {
-        const input = document.getElementById('mathAnswer');
-        if (parseInt(input.value) === expectedAns) {
-            secModal.hide();
+            const hari = hariArr[sekarang.getDay()];
+            const tanggal = sekarang.getDate();
+            const bulan = bulanArr[sekarang.getMonth()];
+            const tahun = sekarang.getFullYear();
             
-            const loader = document.getElementById('loadingOverlay');
-            loader.style.display = 'flex'; loader.style.opacity = '1';
-            document.querySelector('#loadingOverlay h5').innerText = 'Membuka Layanan...';
-            document.querySelector('#loadingOverlay p').innerText = curName;
+            // Format waktu 2 digit (00-23)
+            const jam = sekarang.getHours().toString().padStart(2, '0');
+            const menit = sekarang.getMinutes().toString().padStart(2, '0');
+            const detik = sekarang.getSeconds().toString().padStart(2, '0');
             
-            document.getElementById('appFrame').src = APPS[curKey];
-            document.getElementById('appOverlay').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        } else {
-            input.classList.add('is-invalid');
-            document.getElementById('securityError').classList.remove('d-none');
-            input.value = ''; input.focus(); 
+            // Gabungkan string
+            const formatWaktu = `${hari}, ${tanggal} ${bulan} ${tahun} | ${jam}:${menit}:${detik}`;
+            
+            // Tampilkan ke elemen HTML
+            document.getElementById('waktu').textContent = formatWaktu;
         }
-    }
-    function handleEnter(e) { if (e.key === 'Enter') verifySecurity(); }
-    function hideLoading() { 
-        const loader = document.getElementById('loadingOverlay');
-        loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); 
-    }
-    function closeApp() {
-        document.getElementById('appOverlay').style.display = 'none';
-        document.getElementById('appFrame').src = "";
-        document.body.style.overflow = 'auto';
-    }
 
-    // Form Kritik Saran
-    const form = document.forms['google-sheet-feedback'];
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault(); 
-        const btn = document.getElementById('btnSubmitFeedback'); const alertBox = document.getElementById('feedbackAlert');
-        btn.disabled = true; document.getElementById('btnText').innerText = 'Mengirim...'; document.getElementById('btnSpinner').classList.remove('d-none');
-        alertBox.classList.add('d-none');
+        // Jalankan fungsi pertama kali agar tidak delay
+        updateJam();
         
-        try {
-            await fetch(scriptURL, { method: 'POST', body: new FormData(form)});
-            alertBox.className = 'alert alert-success small mb-3'; alertBox.innerHTML = 'Pesan terkirim. Terima kasih!'; form.reset();
-        } catch (err) {
-            alertBox.className = 'alert alert-danger small mb-3'; alertBox.innerHTML = 'Gagal mengirim. Periksa koneksi.';
-        } finally {
-            btn.disabled = false; document.getElementById('btnText').innerText = 'Kirim Sekarang'; document.getElementById('btnSpinner').classList.add('d-none');
-            alertBox.classList.remove('d-none'); setTimeout(() => alertBox.classList.add('d-none'), 5000);
-        }
-    });
-
-    // Admin Bypass URL
-    if (new URLSearchParams(window.location.search).get('page') === 'admin') {
-        window.history.replaceState({}, document.title, window.location.pathname);
-        openSecureApp('admin', 'Panel Administrator');
-    }
-</script>
+        // Perbarui setiap 1 detik
+        setInterval(updateJam, 1000);
+    </script>
 
 </body>
 </html>
