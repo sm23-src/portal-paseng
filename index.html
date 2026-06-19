@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Sistem Layanan Digital Kelurahan Paseng</title>
     <meta name="description" content="Memudahkan Masyarakat untuk mengakses layanan secara online. Kelurahan Paseng Mendigitalisasikan Birokrasi agar efesien, transparan, mudah dan cepat.">
-    
+
     <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm">
     <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm">
     <meta property="og:image" content="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm">
@@ -16,165 +16,346 @@
     <meta property="og:url" content="https://bykelpas.online">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <style>
-        :root { 
-            --primary: #0f172a; 
-            --accent: #f59e0b;
-            --accent-hover: #d97706;
+        /* ============================================
+           DESIGN TOKENS — Identitas "Kepulauan Sitaro"
+           Laut dalam + emas cengkih (komoditas khas Sitaro)
+           ============================================ */
+        :root {
+            --deep-sea: #0a2540;       /* primary - laut dalam */
+            --deep-sea-2: #123a5e;     /* gradient partner */
+            --reef: #0e6e6e;           /* teal terumbu - aksen sekunder */
+            --clove-gold: #d99e2b;     /* emas cengkih - aksen utama */
+            --clove-gold-light: #f2b94a;
+            --foam: #f5f8fb;           /* bg utama, putih kebiruan */
             --surface: #ffffff;
-            --bg-light: #f8fafc;
-            --text-main: #334155;
-            --text-muted: #64748b;
+            --ink: #1a2b3c;
+            --ink-soft: #51677d;
+            --line: #e3eaf1;
+            --shadow-sea: 0 20px 50px -20px rgba(10, 37, 64, 0.35);
+            --radius-lg: 28px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
         }
 
-        body { 
-            background-color: var(--bg-light); 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            color: var(--text-main);
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--foam);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--ink);
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* Loading Screen Modern */
+        h1, h2, h3, h4, h5, h6, .display-font {
+            font-family: 'Sora', sans-serif;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        ::selection { background: var(--clove-gold); color: var(--deep-sea); }
+
+        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+            outline: 3px solid var(--clove-gold);
+            outline-offset: 2px;
+        }
+
+        /* ============================================
+           LOADING SCREEN
+           ============================================ */
         #loadingOverlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.98); z-index: 10000;
+            background: linear-gradient(160deg, var(--deep-sea) 0%, var(--deep-sea-2) 60%, var(--reef) 130%);
+            z-index: 10000;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            backdrop-filter: blur(15px); transition: opacity 0.5s;
+            transition: opacity 0.5s ease;
         }
-        .loader-ring { width: 60px; height: 60px; border: 5px solid #f1f5f9; border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 1rem; }
+        .loader-wave {
+            position: relative; width: 72px; height: 72px; margin-bottom: 1.5rem;
+        }
+        .loader-wave::before, .loader-wave::after {
+            content: ''; position: absolute; inset: 0; border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--clove-gold);
+            border-right-color: var(--clove-gold-light);
+            animation: spin 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        }
+        .loader-wave::after { inset: 12px; animation-duration: 0.8s; border-top-color: #fff; border-right-color: transparent; opacity: .6;}
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        #loadingOverlay h5 { color: #fff; letter-spacing: .3px; }
+        #loadingOverlay p { color: rgba(255,255,255,.65); }
 
-        /* Animasi Masuk */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        /* ============================================
+           ENTRANCE ANIMATIONS
+           ============================================ */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
         .animate-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-        .d-1 { animation-delay: 0.1s; } .d-2 { animation-delay: 0.2s; } .d-3 { animation-delay: 0.3s; }
+        .d-1 { animation-delay: 0.1s; } .d-2 { animation-delay: 0.25s; } .d-3 { animation-delay: 0.4s; }
 
-        /* Navbar & Ticker (Diperbaiki Teks Bertumpuk) */
-        .running-text-wrapper { background: var(--primary); color: white; padding: 8px 0; font-size: 0.85rem; }
-        .marquee-container { flex-grow: 1; overflow: hidden; white-space: nowrap; width: 100%; }
-        .marquee-content { display: inline-block; padding-left: 100%; animation: marquee 25s linear infinite; }
-        .marquee-content p { display: inline-block; margin: 0; letter-spacing: 0.5px; }
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* ============================================
+           TICKER / RUNNING TEXT
+           ============================================ */
+        .running-text-wrapper {
+            background: var(--deep-sea);
+            color: #dce8f2;
+            padding: 9px 0;
+            font-size: 0.83rem;
+            position: relative;
+            z-index: 1030;
+            border-bottom: 1px solid rgba(217,158,43,.25);
+        }
+        .marquee-container { flex-grow: 1; overflow: hidden; white-space: nowrap; width: 100%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+        .marquee-content { display: inline-block; padding-left: 100%; animation: marquee 26s linear infinite; }
+        .marquee-content p { display: inline-block; margin: 0; letter-spacing: 0.3px; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
-        
-        /* Navbar Transparan ke Solid */
-        .navbar { transition: all 0.4s ease; background: transparent; padding: 15px 0; z-index: 1020; }
-        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 10px 0; }
-        .navbar.scrolled .nav-title { color: var(--primary) !important; }
-        .nav-title { color: white; transition: color 0.4s; }
+        .ticker-badge {
+            background: var(--clove-gold); color: var(--deep-sea);
+            font-size: 0.68rem; letter-spacing: 1px;
+        }
 
-        /* Hero Section Baru */
-        .hero-section { 
-            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.95)), url('https://lh3.googleusercontent.com/d/17tqw43CYnfK98rIau655abGQNdxEDr_F');
-            background-size: cover; background-position: center; background-attachment: fixed; 
-            padding: 120px 0 220px; text-align: center; color: white; position: relative;
+        /* ============================================
+           NAVBAR
+           ============================================ */
+        .navbar { transition: all 0.4s ease; background: transparent; padding: 18px 0; z-index: 1020; }
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 8px 30px rgba(10,37,64,0.08);
+            padding: 10px 0;
+        }
+        .navbar.scrolled .nav-title { color: var(--deep-sea) !important; }
+        .navbar.scrolled .nav-sub { color: var(--ink-soft) !important; }
+        .nav-title { color: white; transition: color 0.4s; }
+        .nav-sub { color: rgba(255,255,255,.7); transition: color 0.4s; }
+        .navbar-brand img { filter: drop-shadow(0 4px 10px rgba(0,0,0,.15)); }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero-section {
+            background:
+                linear-gradient(170deg, rgba(10,37,64,0.88) 0%, rgba(10,37,64,0.80) 45%, rgba(14,110,110,0.75) 100%),
+                url('https://lh3.googleusercontent.com/d/17tqw43CYnfK98rIau655abGQNdxEDr_F');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            padding: 140px 0 230px; text-align: center; color: white; position: relative;
+            isolation: isolate;
+        }
+        .hero-section::before {
+            content: ''; position: absolute; inset: 0; z-index: -1;
+            background-image: radial-gradient(circle, rgba(217,158,43,0.5) 1.5px, transparent 1.5px);
+            background-size: 26px 26px;
+            opacity: .15;
+        }
+        .hero-wave {
+            position: absolute; bottom: -1px; left: 0; width: 100%; line-height: 0; z-index: 1;
+        }
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(217,158,43,0.15); border: 1px solid rgba(217,158,43,0.4);
+            color: var(--clove-gold-light); font-weight: 700; font-size: .72rem;
+            letter-spacing: 1.6px; text-transform: uppercase;
+            padding: 7px 18px; border-radius: 50px; margin-bottom: 22px;
         }
         .hero-date-badge {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 24px; border-radius: 50px; display: inline-flex; gap: 15px; margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 9px 26px; border-radius: 50px; display: inline-flex; gap: 15px; margin-bottom: 28px;
             backdrop-filter: blur(10px); font-size: 0.85rem; font-weight: 600;
         }
+        .hero-section h1 { font-weight: 800; letter-spacing: -0.5px; }
+        .hero-section .lead { color: rgba(255,255,255,.78); }
 
-        /* Floating Service Menu */
-        .services-container { margin-top: -140px; position: relative; z-index: 10; }
-        .service-card { 
-            background: var(--surface); border-radius: 24px; padding: 30px 20px; height: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: all 0.4s ease; border: 1px solid rgba(0,0,0,0.02);
+        /* ============================================
+           FLOATING SERVICE CARDS
+           ============================================ */
+        .services-container { margin-top: -150px; position: relative; z-index: 10; }
+        .service-card {
+            background: var(--surface); border-radius: var(--radius-lg); padding: 32px 22px; height: 100%;
+            box-shadow: var(--shadow-sea); transition: all 0.45s cubic-bezier(.16,1,.3,1);
+            border: 1px solid var(--line);
             display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer;
+            position: relative; overflow: hidden;
         }
-        .service-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); }
-        .service-icon { 
-            width: 65px; height: 65px; border-radius: 20px; display: flex; align-items: center; justify-content: center;
-            font-size: 28px; margin-bottom: 20px; transition: 0.3s;
+        .service-card::after {
+            content: ''; position: absolute; inset: 0; border-radius: inherit;
+            background: linear-gradient(135deg, transparent 40%, rgba(217,158,43,.06));
+            opacity: 0; transition: opacity .4s;
         }
-        .service-card:hover .service-icon { transform: scale(1.1) rotate(5deg); }
-        
-        .ic-1 { background: #eff6ff; color: #3b82f6; }
-        .ic-2 { background: #fef2f2; color: #ef4444; }
-        .ic-3 { background: #fefce8; color: #eab308; }
-        .ic-4 { background: #fdf2f8; color: #ec4899; }
-        .ic-5 { background: #f0fdf4; color: #22c55e; }
-        .ic-6 { background: #f5f3ff; color: #8b5cf6; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 28px 50px -16px rgba(10,37,64,0.28); border-color: rgba(217,158,43,.35); }
+        .service-card:hover::after { opacity: 1; }
+        .service-card:active { transform: translateY(-4px) scale(.98); }
+        .service-icon {
+            width: 68px; height: 68px; border-radius: 20px; display: flex; align-items: center; justify-content: center;
+            font-size: 29px; margin-bottom: 20px; transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+            position: relative; z-index: 1;
+        }
+        .service-card:hover .service-icon { transform: scale(1.12) rotate(-4deg); }
+        .service-arrow { font-size: .78rem; color: var(--ink-soft); font-weight: 700; opacity: 0; transform: translateX(-6px); transition: all .3s; margin-top: 6px; }
+        .service-card:hover .service-arrow { opacity: 1; transform: translateX(0); color: var(--clove-gold); }
 
-        /* Pimpinan Cards Clean */
-        .leader-card { background: white; border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.03); text-align: center; }
-        .leader-img { height: 180px; width: 100%; object-fit: contain; background: #f1f5f9; border-bottom: 3px solid var(--accent); }
-        .lurah-card .leader-img { border-bottom-color: #3b82f6; } 
+        .ic-1 { background: #eaf2fb; color: #1f6fb2; }
+        .ic-2 { background: #fdecec; color: #d24545; }
+        .ic-3 { background: #fdf3e2; color: var(--clove-gold); }
+        .ic-4 { background: #fdebf3; color: #d6437f; }
+        .ic-5 { background: #e9f8f1; color: #16a06b; }
+        .ic-6 { background: #f0eefd; color: #6e4fd6; }
 
-        /* Statistik Minimalis */
-        .stat-card { padding: 20px; text-align: center; }
-        .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1.2; }
-        .stat-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        /* ============================================
+           SECTION HEADERS
+           ============================================ */
+        .section-header { margin-bottom: 42px; position: relative; }
+        .section-eyebrow {
+            display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: 1.6px;
+            text-transform: uppercase; color: var(--reef); margin-bottom: 8px;
+        }
+        .section-header h3 { font-weight: 800; color: var(--deep-sea); font-size: 1.7rem; margin-bottom: 10px; }
+        .section-header span.bar { display: inline-block; width: 54px; height: 4px; background: var(--clove-gold); border-radius: 2px; }
 
-        /* Galeri Dinamis Modern */
-        .section-header { margin-bottom: 40px; position: relative; }
-        .section-header h3 { font-weight: 800; color: var(--primary); font-size: 1.5rem; }
-        .section-header span { display: inline-block; width: 50px; height: 4px; background: var(--accent); border-radius: 2px; }
-        .gallery-item { border-radius: 24px; overflow: hidden; position: relative; height: 320px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.05);}
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        /* ============================================
+           LEADER CARDS
+           ============================================ */
+        .leader-card {
+            background: white; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--line);
+            box-shadow: 0 6px 20px rgba(10,37,64,0.05); text-align: center; transition: all .35s;
+        }
+        .leader-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-sea); }
+        .leader-img { height: 190px; width: 100%; object-fit: contain; background: var(--foam); border-bottom: 3px solid var(--clove-gold); }
+        .lurah-card .leader-img { border-bottom-color: var(--reef); }
+        .leader-role { font-size: .72rem; letter-spacing: .3px; }
+
+        /* ============================================
+           STATS
+           ============================================ */
+        .stat-card {
+            padding: 26px 18px; text-align: center; background: white; border: 1px solid var(--line);
+            border-radius: var(--radius-md); transition: all .35s; position: relative; overflow: hidden;
+        }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-sea); border-color: rgba(217,158,43,.3); }
+        .stat-num { font-family: 'Sora', sans-serif; font-size: 2.4rem; font-weight: 800; color: var(--deep-sea); line-height: 1.2; }
+        .stat-label { font-size: 0.8rem; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+        /* ============================================
+           GALLERY
+           ============================================ */
+        .gallery-item { border-radius: var(--radius-lg); overflow: hidden; position: relative; height: 340px; cursor: pointer; box-shadow: 0 14px 30px rgba(10,37,64,0.1); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.16,1,.3,1); }
         .gallery-item:hover img { transform: scale(1.08); }
-        .gallery-overlay { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(15,23,42,0.95), transparent); padding: 40px 20px 20px; color: white; }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(10,23,42,0.95), transparent 75%); padding: 46px 24px 22px; color: white; }
+        .gallery-tag { font-size: .68rem; letter-spacing: 1px; text-transform: uppercase; color: var(--clove-gold-light); font-weight: 700; }
 
-        /* FAQ Clean */
-        .accordion-item { border: 1px solid #f1f5f9; border-radius: 16px !important; margin-bottom: 12px; overflow: hidden; background: white; }
-        .accordion-button { font-weight: 600; padding: 18px 20px; color: var(--text-main); }
-        .accordion-button:not(.collapsed) { background: #fffbeb; color: var(--accent-hover); box-shadow: none; }
+        /* ============================================
+           FAQ
+           ============================================ */
+        .accordion-item { border: 1px solid var(--line); border-radius: 16px !important; margin-bottom: 12px; overflow: hidden; background: white; }
+        .accordion-button { font-weight: 700; padding: 19px 20px; color: var(--ink); font-size: .95rem; }
+        .accordion-button:not(.collapsed) { background: #fdf3e2; color: #a3700f; box-shadow: none; }
         .accordion-button:focus { box-shadow: none; }
-        
-        /* Modals & FAB */
-        .fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; gap: 15px; }
-        .fab-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-        .fab-btn:hover { transform: scale(1.1) translateY(-5px); }
+        .accordion-button::after { background-size: 1.1rem; }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testi-card { background: white; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: 0 10px 26px rgba(10,37,64,0.06); }
+        .testi-avatar { width: 46px; height: 46px; font-size: 1.1rem; background: linear-gradient(135deg, var(--clove-gold), var(--clove-gold-light)); color: var(--deep-sea); }
+        .quote-mark { font-size: 2.6rem; color: var(--clove-gold); opacity: .25; line-height: 1; font-family: 'Sora', sans-serif; }
+
+        /* ============================================
+           MODALS & FAB
+           ============================================ */
+        .fab-container { position: fixed; bottom: 28px; right: 28px; z-index: 1000; display: flex; flex-direction: column; gap: 14px; }
+        .fab-btn {
+            width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 23px; color: white; border: none; cursor: pointer; transition: all .3s cubic-bezier(.34,1.56,.64,1);
+            box-shadow: 0 12px 24px rgba(10,37,64,0.22);
+        }
+        .fab-btn:hover { transform: scale(1.1) translateY(-4px); }
         .fab-wa { background: #25D366; }
-        .fab-feedback { background: var(--accent); }
-        
-        .modal-content { border-radius: 24px; border: none; }
-        .math-box { background: #f8fafc; border-radius: 16px; padding: 15px; font-size: 2rem; font-weight: 800; color: var(--primary); letter-spacing: 2px; }
-        .math-input { font-size: 1.5rem !important; text-align: center; border-radius: 12px !important; border: 2px solid #e2e8f0; font-weight: 700; height: 60px;}
-        .math-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1); }
+        .fab-feedback { background: linear-gradient(135deg, var(--clove-gold), var(--clove-gold-light)); color: var(--deep-sea); }
+        .fab-pulse::before {
+            content: ''; position: absolute; inset: 0; border-radius: 50%; background: inherit; opacity: .55;
+            animation: pulse-ring 2.2s cubic-bezier(0.4,0,0.6,1) infinite;
+            z-index: -1;
+        }
+        @keyframes pulse-ring { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(1.7); opacity: 0; } }
 
-        /* Footer */
-        .footer { background: var(--primary); color: #cbd5e1; padding: 80px 0 30px; }
-        .footer-title { color: white; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.5px; }
-        .footer a { color: #cbd5e1; text-decoration: none; transition: 0.3s; display: inline-block; }
-        .footer a:hover { color: var(--accent); transform: translateX(5px); }
-        .social-links a { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; }
-        .social-links a:hover { background: var(--accent); color: white; transform: translateY(-3px); }
+        .modal-content { border-radius: var(--radius-lg); border: none; box-shadow: 0 30px 70px rgba(10,37,64,.3); }
+        .math-box { background: var(--foam); border-radius: 16px; padding: 16px; font-size: 2rem; font-weight: 800; color: var(--deep-sea); letter-spacing: 2px; font-family: 'Sora', sans-serif; }
+        .math-input { font-size: 1.5rem !important; text-align: center; border-radius: 12px !important; border: 2px solid var(--line); font-weight: 700; height: 60px; }
+        .math-input:focus { border-color: var(--clove-gold); box-shadow: 0 0 0 4px rgba(217, 158, 43, 0.15); }
+        .btn-brand {
+            background: linear-gradient(135deg, var(--clove-gold), var(--clove-gold-light));
+            color: var(--deep-sea); border: none; font-weight: 700; transition: all .3s;
+        }
+        .btn-brand:hover { color: var(--deep-sea); filter: brightness(1.06); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(217,158,43,.35); }
 
-        /* iFrame Overlay */
-        #appOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-light); z-index: 9999; }
-        iframe { width: 100%; height: calc(100% - 65px); border: none; background: white;}
+        .form-control.bg-light { background: var(--foam) !important; border-radius: var(--radius-sm) !important; }
+        .form-control.bg-light:focus { background: white !important; border-color: var(--clove-gold); box-shadow: 0 0 0 4px rgba(217,158,43,.12); }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer { background: linear-gradient(180deg, var(--deep-sea) 0%, #081c30 100%); color: #aebfd1; padding: 84px 0 30px; position: relative; }
+        .footer-title { color: white; font-weight: 700; margin-bottom: 20px; letter-spacing: 0.3px; font-family: 'Sora', sans-serif; }
+        .footer a { color: #aebfd1; text-decoration: none; transition: all 0.25s; display: inline-block; }
+        .footer a:hover { color: var(--clove-gold-light); transform: translateX(5px); }
+        .social-links a { width: 42px; height: 42px; background: rgba(255,255,255,0.06); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-right: 10px; transform: none; }
+        .social-links a:hover { background: var(--clove-gold); color: var(--deep-sea); transform: translateY(-3px); }
+
+        /* ============================================
+           APP OVERLAY (iFrame)
+           ============================================ */
+        #appOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--foam); z-index: 9999; }
+        iframe { width: 100%; height: calc(100% - 65px); border: none; background: white; }
+        .app-topbar { height: 65px; border-bottom: 1px solid var(--line); }
+
+        @media (max-width: 767px) {
+            .hero-section { padding: 130px 0 200px; background-attachment: scroll; }
+            .services-container { margin-top: -160px; }
+            .service-card { padding: 24px 14px; }
+            .service-icon { width: 56px; height: 56px; font-size: 24px; }
+        }
     </style>
 </head>
 <body>
 
 <div id="loadingOverlay">
-    <div class="loader-ring"></div>
-    <h5 class="fw-bold text-dark mb-1">Mempersiapkan Portal</h5>
-    <p class="text-muted small">Sinkronisasi data Kelurahan Paseng...</p>
+    <div class="loader-wave"></div>
+    <h5 class="fw-bold mb-1">Mempersiapkan Portal</h5>
+    <p class="small mb-0">Sinkronisasi data Kelurahan Paseng...</p>
 </div>
 
 <div class="running-text-wrapper">
     <div class="container d-flex align-items-center">
-        <span class="badge bg-white text-dark me-3 fw-bold px-2 py-1 flex-shrink-0" style="font-size: 0.7rem;">INFO</span>
+        <span class="badge ticker-badge me-3 fw-bold px-2 py-1 flex-shrink-0">INFO</span>
         <div class="marquee-container">
             <div class="marquee-content">
-                <p><i class="bi bi-info-circle-fill text-warning me-1"></i> Selamat datang di Sistem Layanan Digital Kelurahan Paseng. Birokrasi Efisien, Transparan & Cepat. | Pendaftaran turnamen Paseng Cup 2026 dibuka di menu layanan.</p>
+                <p><i class="bi bi-info-circle-fill me-1" style="color: var(--clove-gold-light);"></i> Selamat datang di Sistem Layanan Digital Kelurahan Paseng. Birokrasi Efisien, Transparan &amp; Cepat. &nbsp;|&nbsp; Pendaftaran turnamen Paseng Cup 2026 dibuka di menu layanan.</p>
             </div>
         </div>
     </div>
 </div>
 
-<nav class="navbar fixed-top animate-up" id="mainNav" style="top: 32px;">
+<nav class="navbar fixed-top animate-up" id="mainNav" style="top: 34px;">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
-            <img src="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm" alt="Logo" height="45" class="me-3">
+            <img src="https://lh3.googleusercontent.com/d/1p29jHxTkBXAP_KVZl2AvOYstxFPzW7rm" alt="Logo" height="44" class="me-3">
             <div>
                 <h6 class="mb-0 fw-bold nav-title" style="letter-spacing: 0.5px;">KELURAHAN PASENG</h6>
-                <small class="nav-title opacity-75 d-block" style="font-size: 0.7rem; margin-top: -2px;">Kec. Siau Barat</small>
+                <small class="nav-sub d-block" style="font-size: 0.7rem; margin-top: -2px;">Kec. Siau Barat</small>
             </div>
         </a>
     </div>
@@ -182,15 +363,16 @@
 
 <section class="hero-section">
     <div class="container animate-up d-1">
+        <div class="hero-eyebrow"><i class="bi bi-stars"></i> Portal Layanan Resmi</div>
         <div class="hero-date-badge">
-            <span id="greeting-text" class="text-warning">Memuat Waktu...</span>
+            <span id="greeting-text" style="color: var(--clove-gold-light);">Memuat Waktu...</span>
             <span class="opacity-50">|</span>
             <span id="live-clock">00:00:00</span>
             <span class="d-none d-md-inline opacity-50">|</span>
             <span id="live-date" class="d-none d-md-inline"></span>
         </div>
-        <h1 class="display-4 fw-bolder mb-3">Layanan Digital Terpadu</h1>
-        <p class="lead opacity-75 fw-medium mx-auto" style="max-width: 600px;">Solusi cerdas administrasi pemerintahan untuk masyarakat Kelurahan Paseng yang lebih maju.</p>
+        <h1 class="display-4 mb-3">Layanan Digital Terpadu</h1>
+        <p class="lead fw-medium mx-auto" style="max-width: 600px;">Solusi cerdas administrasi pemerintahan untuk masyarakat Kelurahan Paseng yang lebih maju.</p>
     </div>
 </section>
 
@@ -200,14 +382,16 @@
             <div class="service-card" onclick="openSecureApp('layanan', 'Layanan Bypass')">
                 <div class="service-icon ic-1"><i class="bi bi-file-earmark-text-fill"></i></div>
                 <h6 class="fw-bold mb-1">Layanan Bypass</h6>
-                <small class="text-muted d-none d-md-block">Penerbitan Surat & Keterangan</small>
+                <small class="text-muted d-none d-md-block">Penerbitan Surat &amp; Keterangan</small>
+                <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
         <div class="col-6 col-lg-4">
             <div class="service-card" onclick="openSecureApp('posyandu', 'SIPANDU')">
                 <div class="service-icon ic-2"><i class="bi bi-balloon-heart-fill"></i></div>
                 <h6 class="fw-bold mb-1">SIPANDU</h6>
-                <small class="text-muted d-none d-md-block">Kesehatan & Posyandu</small>
+                <small class="text-muted d-none d-md-block">Kesehatan &amp; Posyandu</small>
+                <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
         <div class="col-6 col-lg-4">
@@ -215,13 +399,15 @@
                 <div class="service-icon ic-3"><i class="bi bi-book-half"></i></div>
                 <h6 class="fw-bold mb-1">Buku Tamu</h6>
                 <small class="text-muted d-none d-md-block">Registrasi Kunjungan Digital</small>
+                <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
         <div class="col-6 col-lg-4">
             <div class="service-card" onclick="openSecureApp('bencana', 'Info Bencana Alam')">
                 <div class="service-icon ic-4"><i class="bi bi-shield-fill-exclamation"></i></div>
                 <h6 class="fw-bold mb-1">Info Bencana</h6>
-                <small class="text-muted d-none d-md-block">Laporan & Data Terdampak</small>
+                <small class="text-muted d-none d-md-block">Laporan &amp; Data Terdampak</small>
+                <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
         <div class="col-6 col-lg-4">
@@ -229,6 +415,7 @@
                 <div class="service-icon ic-5"><i class="bi bi-box2-heart-fill"></i></div>
                 <h6 class="fw-bold mb-1">Bantuan Mandiri</h6>
                 <small class="text-muted d-none d-md-block">Pengecekan Status Penerima</small>
+                <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
         <div class="col-6 col-lg-4">
@@ -236,44 +423,47 @@
                 <div class="service-icon ic-6"><i class="bi bi-trophy-fill"></i></div>
                 <h6 class="fw-bold mb-1">Paseng Cup 2026</h6>
                 <small class="text-muted d-none d-md-block">Informasi Turnamen Resmi</small>
+                <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
     </div>
 </div>
 
 <section class="py-5">
-    <div class="container animate-up d-3">
-        <div class="row align-items-center">
+    <div class="container">
+        <div class="row align-items-start">
             <div class="col-lg-6 mb-5 mb-lg-0">
-                <div class="section-header">
+                <div class="section-header reveal">
+                    <span class="section-eyebrow">Struktur Pemerintahan</span>
                     <h3>Pimpinan Daerah dan Pimpinan Kelurahan</h3>
-                    <span></span>
+                    <span class="bar"></span>
                 </div>
-                <div class="row g-3">
+                <div class="row g-3 reveal">
                     <div class="col-6">
                         <div class="leader-card p-3">
                             <img src="https://lh3.googleusercontent.com/d/17vNhb2YmwQC-KSQ0_Ak_FR1hafMIMqrj" class="leader-img rounded-3 mb-3" alt="Wakil">
                             <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.85rem;">HERONIMUS MAKAINAS, SE</h6>
-                            <small class="text-muted" style="font-size: 0.75rem;">Plt. Bupati Kepulauan Sitaro</small>
+                            <small class="text-muted leader-role">Plt. Bupati Kepulauan Sitaro</small>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="leader-card lurah-card p-3">
                             <img src="https://lh3.googleusercontent.com/d/1pP-9F7pJ53j9JurLqaZJr1r-9NBwePIC" class="leader-img rounded-3 mb-3" alt="Lurah">
-                            <h6 class="fw-bold mb-0 text-primary" style="font-size: 0.85rem;">RIO ROLLAND BIDUANG, A.Md</h6>
-                            <small class="text-muted" style="font-size: 0.75rem;">Lurah Paseng</small>
+                            <h6 class="fw-bold mb-0" style="font-size: 0.85rem; color: var(--reef);">RIO ROLLAND BIDUANG, A.Md</h6>
+                            <small class="text-muted leader-role">Lurah Paseng</small>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-5 offset-lg-1">
-                <div class="section-header">
+                <div class="section-header reveal">
+                    <span class="section-eyebrow">Angka Berbicara</span>
                     <h3>Data Statistik</h3>
-                    <span></span>
+                    <span class="bar"></span>
                 </div>
-                <div class="row g-4" id="statsContainer">
-                    </div>
+                <div class="row g-4 reveal" id="statsContainer">
+                </div>
             </div>
         </div>
     </div>
@@ -283,27 +473,28 @@
     <div class="container">
         <div class="row g-5">
             <div class="col-lg-6">
-                <div class="section-header">
+                <div class="section-header reveal">
+                    <span class="section-eyebrow">Dokumentasi</span>
                     <h3>Galeri Kegiatan</h3>
-                    <span></span>
+                    <span class="bar"></span>
                 </div>
-                <div id="galleryCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div id="galleryCarousel" class="carousel slide reveal" data-bs-ride="carousel">
                     <div class="carousel-inner" id="galleryContainer">
-                        </div>
+                    </div>
                     <div class="mt-3 d-flex justify-content-end gap-2">
                         <button class="btn btn-light rounded-circle" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev"><i class="bi bi-chevron-left"></i></button>
                         <button class="btn btn-light rounded-circle" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next"><i class="bi bi-chevron-right"></i></button>
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-6">
-                <div class="section-header">
+                <div class="section-header reveal">
+                    <span class="section-eyebrow">Tanya Jawab</span>
                     <h3>Pusat Bantuan (FAQ)</h3>
-                    <span></span>
+                    <span class="bar"></span>
                 </div>
-                <div class="accordion shadow-sm" id="faqContainer" style="border-radius: 16px;">
-                    </div>
+                <div class="accordion reveal" id="faqContainer" style="border-radius: 16px;">
+                </div>
             </div>
         </div>
     </div>
@@ -311,19 +502,20 @@
 
 <section class="py-5">
     <div class="container">
-        <div class="text-center mb-5 section-header">
+        <div class="text-center mb-5 section-header reveal">
+            <span class="section-eyebrow d-block">Apresiasi</span>
             <h3 class="mx-auto">Suara Warga Paseng</h3>
-            <span class="mx-auto" style="display: block;"></span>
+            <span class="bar mx-auto" style="display: block;"></span>
         </div>
-        
-        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+
+        <div id="testimonialCarousel" class="carousel slide reveal" data-bs-ride="carousel">
             <div class="carousel-inner px-md-5" id="commentsContainer">
                 <div class="col-12 text-center my-4" id="commentsLoading">
-                    <div class="spinner-border text-warning" role="status"></div>
+                    <div class="spinner-border" style="color: var(--clove-gold);" role="status"></div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon bg-dark rounded-circle p-2"></span></button>
-            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next"><span class="carousel-control-next-icon bg-dark rounded-circle p-2"></span></button>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon rounded-circle p-2" style="background-color: var(--deep-sea);"></span></button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next"><span class="carousel-control-next-icon rounded-circle p-2" style="background-color: var(--deep-sea);"></span></button>
         </div>
     </div>
 </section>
@@ -347,30 +539,30 @@
                     <li class="mb-2"><a href="#">Profil Kelurahan</a></li>
                     <li class="mb-2"><a href="#">Kontak Darurat</a></li>
                     <li class="mb-2"><a href="#">Info Pengembang</a></li>
-                    <li class="mb-2 mt-3"><a href="?page=admin" class="text-warning fw-bold"><i class="bi bi-shield-lock-fill me-1"></i> Panel Admin</a></li>
+                    <li class="mb-2 mt-3"><a href="?page=admin" class="fw-bold" style="color: var(--clove-gold-light);"><i class="bi bi-shield-lock-fill me-1"></i> Panel Admin</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
                 <h6 class="footer-title">Hubungi Kami</h6>
                 <ul class="list-unstyled small opacity-75 lh-lg">
-                    <li class="mb-3 d-flex"><i class="bi bi-geo-alt-fill text-warning me-3 mt-1"></i> <span>Jl. Utama Paseng, Kec. Siau Barat, Kab. Kepulauan Sitaro</span></li>
-                    <li class="mb-3 d-flex"><i class="bi bi-envelope-fill text-warning me-3 mt-1"></i> <span>epaselektronikpaseng@gmail.com</span></li>
-                    <li class="mb-3 d-flex"><i class="bi bi-telephone-fill text-warning me-3 mt-1"></i> <span>0813 (Admin)</span></li>
+                    <li class="mb-3 d-flex"><i class="bi bi-geo-alt-fill me-3 mt-1" style="color: var(--clove-gold-light);"></i> <span>Jl. Utama Paseng, Kec. Siau Barat, Kab. Kepulauan Sitaro</span></li>
+                    <li class="mb-3 d-flex"><i class="bi bi-envelope-fill me-3 mt-1" style="color: var(--clove-gold-light);"></i> <span>epaselektronikpaseng@gmail.com</span></li>
+                    <li class="mb-3 d-flex"><i class="bi bi-telephone-fill me-3 mt-1" style="color: var(--clove-gold-light);"></i> <span>0813 (Admin)</span></li>
                 </ul>
             </div>
         </div>
         <hr class="mt-5 mb-4 border-secondary opacity-25">
         <div class="text-center small opacity-50">
-            © 2026 Kelurahan Paseng. Dikembangkan oleh Kasi Pemeliharaan, Pemberdayaan & Pelayanan ┃ Sandro Maola, SE
+            © 2026 Kelurahan Paseng. Dikembangkan oleh Kasi Pemeliharaan, Pemberdayaan &amp; Pelayanan ┃ Sandro Maola, SE
         </div>
     </div>
 </footer>
 
 <div class="fab-container">
-    <a href="https://wa.me/6282291781523?text=Halo%20Admin..." target="_blank" class="fab-btn fab-wa text-decoration-none" title="Chat WhatsApp">
+    <a href="https://wa.me/6282291781523?text=Halo%20Admin..." target="_blank" class="fab-btn fab-wa fab-pulse text-decoration-none position-relative" title="Chat WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>
-    <button class="fab-btn fab-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal" title="Kirim Masukan">
+    <button class="fab-btn fab-feedback position-relative" data-bs-toggle="modal" data-bs-target="#feedbackModal" title="Kirim Masukan">
         <i class="bi bi-chat-dots-fill"></i>
     </button>
 </div>
@@ -379,7 +571,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header border-0 pb-0 pt-4 px-4">
-                <h4 class="modal-title fw-bold text-dark" id="newsTitle">Judul</h4>
+                <h4 class="modal-title fw-bold" style="color: var(--deep-sea);" id="newsTitle">Judul</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body px-4 pb-5 pt-3 text-secondary lh-lg">
@@ -398,11 +590,11 @@
             </div>
             <div class="modal-body text-center pt-2 pb-4 px-4">
                 <div class="mb-3">
-                    <i class="bi bi-shield-lock-fill text-warning" style="font-size: 3rem;"></i>
+                    <i class="bi bi-shield-lock-fill" style="font-size: 3rem; color: var(--clove-gold);"></i>
                 </div>
-                <h5 class="fw-bold text-dark mb-1">Verifikasi Akses</h5>
-                <p class="small text-muted mb-4">Selesaikan penjumlahan untuk membuka <br><strong class="text-primary" id="targetServiceName">Layanan</strong>.</p>
-                
+                <h5 class="fw-bold" style="color: var(--deep-sea);">Verifikasi Akses</h5>
+                <p class="small text-muted mb-4">Selesaikan penjumlahan untuk membuka <br><strong style="color: var(--reef);" id="targetServiceName">Layanan</strong>.</p>
+
                 <div class="math-box mb-3 d-flex align-items-center justify-content-center gap-2 shadow-sm">
                     <span id="mathNum1">0</span> <span class="text-muted">+</span> <span id="mathNum2">0</span> <span class="text-muted">=</span>
                 </div>
@@ -410,7 +602,7 @@
                 <div id="securityError" class="text-danger small fw-bold d-none"><i class="bi bi-exclamation-circle-fill me-1"></i> Jawaban keliru!</div>
             </div>
             <div class="modal-footer border-0 pt-0 justify-content-center px-4 pb-4">
-                <button type="button" class="btn btn-warning w-100 py-2 rounded-3 fw-bold text-dark" onclick="verifySecurity()">Buka Layanan</button>
+                <button type="button" class="btn btn-brand w-100 py-2 rounded-3" onclick="verifySecurity()">Buka Layanan</button>
             </div>
         </div>
     </div>
@@ -420,7 +612,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-2">
             <div class="modal-header border-0 pb-0">
-                <h5 class="modal-title fw-bold"><i class="bi bi-envelope-paper-heart text-warning me-2"></i> Kirim Masukan</h5>
+                <h5 class="modal-title fw-bold"><i class="bi bi-envelope-paper-heart me-2" style="color: var(--clove-gold);"></i> Kirim Masukan</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -438,7 +630,7 @@
                         <textarea class="form-control bg-light border-0 px-3 py-2" name="pesan" rows="4" required placeholder="Tuliskan ide atau saran Anda..."></textarea>
                     </div>
                     <div id="feedbackAlert" class="alert d-none small fw-medium"></div>
-                    <button type="submit" id="btnSubmitFeedback" class="btn btn-warning w-100 py-2 rounded-3 fw-bold">
+                    <button type="submit" id="btnSubmitFeedback" class="btn btn-brand w-100 py-2 rounded-3">
                         <span id="btnText">Kirim Sekarang</span>
                         <div id="btnSpinner" class="spinner-border spinner-border-sm ms-2 d-none"></div>
                     </button>
@@ -449,9 +641,9 @@
 </div>
 
 <div id="appOverlay">
-    <div class="d-flex align-items-center justify-content-between px-4 shadow-sm bg-white" style="height: 65px;">
-        <h6 class="mb-0 fw-bold text-primary d-flex align-items-center" id="currentAppName">
-            <div class="spinner-grow spinner-grow-sm text-warning me-2"></div> Memuat Sistem...
+    <div class="d-flex align-items-center justify-content-between px-4 shadow-sm bg-white app-topbar">
+        <h6 class="mb-0 fw-bold d-flex align-items-center" style="color: var(--deep-sea);" id="currentAppName">
+            <div class="spinner-grow spinner-grow-sm me-2" style="color: var(--clove-gold);"></div> Memuat Sistem...
         </h6>
         <button class="btn btn-sm btn-light text-danger fw-bold rounded-pill px-3" onclick="closeApp()"><i class="bi bi-x-lg me-1"></i> Tutup</button>
     </div>
@@ -459,7 +651,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
     // --- DATABASE & APP LINKS ---
     const APPS = {
@@ -467,7 +658,7 @@
         posyandu: "https://script.google.com/macros/s/AKfycbyKM0RCrw3gk-nIWnAd7hl2sa_8xar1XSqgt-n2PHBfmFnJN22GY0Xt4bGnh1uF7CxVDw/exec",
         tamu: "https://script.google.com/macros/s/AKfycbwuNWl8IfSymCmA6gFcYqZDcDFMr2unggIZUX1aApN-5VM3rf1DroAA8r1uHo1JvytBuA/exec",
         bencana: "https://script.google.com/macros/s/AKfycbwGsXfUh2E3lvkjVGlWDZQ1MzaKYZrvBqYtvcRUtDVdkMfIb0fyp3nZ5tHymIt-VLR_XA/exec",
-        bantuan: "https://script.google.com/macros/s/AKfycbxJ0s6Eua25qEpeUXOItASyWPqX3eo-zPJcWx95X9_V_7YuqOkAYjc2V8-DgvSQTMeK/exec", 
+        bantuan: "https://script.google.com/macros/s/AKfycbxJ0s6Eua25qEpeUXOItASyWPqX3eo-zPJcWx95X9_V_7YuqOkAYjc2V8-DgvSQTMeK/exec",
         pasengCup: "https://script.google.com/macros/s/AKfycbyZ_W5adANaRuYgZbzd-RTVYYjFla0H_9TXmVNnJ1nbd7uqvVZRzaEAbvGH0TE2eglvtg/exec",
         admin: "https://script.google.com/macros/s/AKfycbyRWCEvsphRQqAmcGPPl8bL0XW5j1Nz3OeRM0_zQpdbhpGJX6QCnSpudG2VnZBRkF6p/exec?page=admin"
     };
@@ -476,8 +667,8 @@
     // --- UI UX LOGIC ---
     window.addEventListener('scroll', () => {
         const nav = document.getElementById('mainNav');
-        if (window.scrollY > 50) { nav.classList.add('scrolled'); nav.style.top = '0'; } 
-        else { nav.classList.remove('scrolled'); nav.style.top = '32px'; }
+        if (window.scrollY > 50) { nav.classList.add('scrolled'); nav.style.top = '0'; }
+        else { nav.classList.remove('scrolled'); nav.style.top = '34px'; }
     });
 
     setInterval(() => {
@@ -488,18 +679,29 @@
         document.getElementById('live-date').innerText = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     }, 1000);
 
+    // --- Scroll reveal for section headers / blocks ---
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
     // --- LOGIKA FETCH DATA ---
     async function initData() {
         try {
             const response = await fetch(scriptURL);
             const data = await response.json();
-            
+
             // Render Statistik
             const statsDiv = document.getElementById('statsContainer');
             if(data.stats?.length) {
                 statsDiv.innerHTML = data.stats.map(s => `
                     <div class="col-6">
-                        <div class="stat-card border rounded-4 bg-white shadow-sm">
+                        <div class="stat-card">
                             <div class="stat-num counter" data-target="${s.jumlah}">0</div>
                             <div class="stat-label mt-2">${s.kategori}</div>
                         </div>
@@ -517,8 +719,9 @@
                         <div class="gallery-item" onclick="openNews('${g.judul}', '${safeDesc}', '${g.foto}')">
                             <img src="${g.foto}" alt="${g.judul}">
                             <div class="gallery-overlay">
-                                <h5 class="fw-bold mb-1">${g.judul}</h5>
-                                <span class="text-warning small fw-bold">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
+                                <span class="gallery-tag">Kegiatan</span>
+                                <h5 class="fw-bold mb-1 mt-1">${g.judul}</h5>
+                                <span class="small fw-bold" style="color: var(--clove-gold-light);">Baca Selengkapnya <i class="bi bi-arrow-right"></i></span>
                             </div>
                         </div>
                     </div>`;
@@ -542,12 +745,13 @@
             if(data.comments?.length) {
                 commDiv.innerHTML = data.comments.map((c, i) => `
                     <div class="carousel-item ${i === 0 ? 'active' : ''}">
-                        <div class="bg-white p-4 rounded-4 shadow-sm border mx-auto" style="max-width: 650px;">
-                            <p class="fst-italic text-muted mb-4 text-center fs-6 lh-lg">"${c.pesan}"</p>
+                        <div class="testi-card p-4 mx-auto" style="max-width: 650px;">
+                            <div class="quote-mark text-center mb-2">&ldquo;</div>
+                            <p class="fst-italic text-muted mb-4 text-center fs-6 lh-lg">${c.pesan}</p>
                             <div class="d-flex align-items-center justify-content-center flex-column text-center">
-                                <div class="bg-warning text-dark rounded-circle fw-bold d-flex align-items-center justify-content-center mb-2" style="width:45px; height:45px; font-size: 1.1rem;">${c.nama.charAt(0).toUpperCase()}</div>
+                                <div class="testi-avatar rounded-circle fw-bold d-flex align-items-center justify-content-center mb-2">${c.nama.charAt(0).toUpperCase()}</div>
                                 <div>
-                                    <h6 class="mb-0 fw-bold text-dark">${c.nama}</h6>
+                                    <h6 class="mb-0 fw-bold" style="color: var(--deep-sea);">${c.nama}</h6>
                                     <small class="text-muted" style="font-size: 0.75rem;">${c.tanggal}</small>
                                 </div>
                             </div>
@@ -570,7 +774,7 @@
         document.querySelectorAll('.counter').forEach(el => {
             const updateCount = () => {
                 const target = +el.getAttribute('data-target'); const count = +el.innerText;
-                if (count < target) { el.innerText = Math.ceil(count + (target / 30)); setTimeout(updateCount, 30); } 
+                if (count < target) { el.innerText = Math.ceil(count + (target / 30)); setTimeout(updateCount, 30); }
                 else { el.innerText = target; }
             };
             const rect = el.getBoundingClientRect();
@@ -581,10 +785,10 @@
 
     // Modals (Pop-up Berita yang disesuaikan untuk menampilkan Foto)
     const newsModal = new bootstrap.Modal(document.getElementById('newsModal'));
-    function openNews(judul, isi, foto) { 
-        document.getElementById('newsTitle').innerText = judul; 
-        document.getElementById('newsContent').innerText = isi; 
-        
+    function openNews(judul, isi, foto) {
+        document.getElementById('newsTitle').innerText = judul;
+        document.getElementById('newsContent').innerText = isi;
+
         const imgEl = document.getElementById('newsImage');
         if (foto && foto !== 'undefined' && foto !== '') {
             imgEl.src = foto;
@@ -592,14 +796,13 @@
         } else {
             imgEl.style.display = 'none';
         }
-        
-        newsModal.show(); 
+
+        newsModal.show();
     }
 
     // Security Logic
     let curKey = "", curName = "", expectedAns = 0;
     const secModal = new bootstrap.Modal(document.getElementById('securityModal'));
-
     function openSecureApp(key, name) {
         curKey = key; curName = name;
         let n1 = Math.floor(Math.random() * 5) + 1; let n2 = Math.floor(Math.random() * 5) + 1; expectedAns = n1 + n2;
@@ -610,30 +813,29 @@
         document.getElementById('securityError').classList.add('d-none');
         secModal.show(); setTimeout(() => input.focus(), 500);
     }
-
     function verifySecurity() {
         const input = document.getElementById('mathAnswer');
         if (parseInt(input.value) === expectedAns) {
             secModal.hide();
-            
+
             const loader = document.getElementById('loadingOverlay');
             loader.style.display = 'flex'; loader.style.opacity = '1';
             document.querySelector('#loadingOverlay h5').innerText = 'Membuka Layanan...';
             document.querySelector('#loadingOverlay p').innerText = curName;
-            
+
             document.getElementById('appFrame').src = APPS[curKey];
             document.getElementById('appOverlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
         } else {
             input.classList.add('is-invalid');
             document.getElementById('securityError').classList.remove('d-none');
-            input.value = ''; input.focus(); 
+            input.value = ''; input.focus();
         }
     }
     function handleEnter(e) { if (e.key === 'Enter') verifySecurity(); }
-    function hideLoading() { 
+    function hideLoading() {
         const loader = document.getElementById('loadingOverlay');
-        loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); 
+        loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500);
     }
     function closeApp() {
         document.getElementById('appOverlay').style.display = 'none';
@@ -644,11 +846,11 @@
     // Form Kritik Saran
     const form = document.forms['google-sheet-feedback'];
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         const btn = document.getElementById('btnSubmitFeedback'); const alertBox = document.getElementById('feedbackAlert');
         btn.disabled = true; document.getElementById('btnText').innerText = 'Mengirim...'; document.getElementById('btnSpinner').classList.remove('d-none');
         alertBox.classList.add('d-none');
-        
+
         try {
             await fetch(scriptURL, { method: 'POST', body: new FormData(form)});
             alertBox.className = 'alert alert-success small mb-3'; alertBox.innerHTML = 'Pesan terkirim. Terima kasih!'; form.reset();
@@ -666,6 +868,5 @@
         openSecureApp('admin', 'Panel Administrator');
     }
 </script>
-
 </body>
 </html>
