@@ -20,17 +20,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 
     <style>
-        /* ============================================
-           DESIGN TOKENS — Identitas "Kepulauan Sitaro"
-           Laut dalam + emas cengkih (komoditas khas Sitaro)
-           ============================================ */
         :root {
-            --deep-sea: #0a2540;       /* primary - laut dalam */
-            --deep-sea-2: #123a5e;     /* gradient partner */
-            --reef: #0e6e6e;           /* teal terumbu - aksen sekunder */
-            --clove-gold: #d99e2b;     /* emas cengkih - aksen utama */
+            --deep-sea: #0a2540;
+            --deep-sea-2: #123a5e;
+            --reef: #0e6e6e;
+            --clove-gold: #d99e2b;
             --clove-gold-light: #f2b94a;
-            --foam: #f5f8fb;           /* bg utama, putih kebiruan */
+            --foam: #f5f8fb;
             --surface: #ffffff;
             --ink: #1a2b3c;
             --ink-soft: #51677d;
@@ -316,17 +312,57 @@
         .social-links a:hover { background: var(--clove-gold); color: var(--deep-sea); transform: translateY(-3px); }
 
         /* ============================================
-           APP OVERLAY (iFrame)
+           APP OVERLAY (iFrame) & FADE TRANSITION
            ============================================ */
-        #appOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--foam); z-index: 9999; }
-        iframe { width: 100%; height: calc(100% - 65px); border: none; background: white; }
-        .app-topbar { height: 65px; border-bottom: 1px solid var(--line); }
+        #appOverlay { 
+            visibility: hidden;
+            opacity: 0;
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: var(--foam); 
+            z-index: 9999; 
+            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+        }
+        iframe { width: 100%; height: 100%; border: none; background: white; }
+
+        /* ============================================
+           FLOATING HOME BUTTON
+           ============================================ */
+        .btn-floating-home {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--clove-gold), var(--clove-gold-light));
+            color: var(--deep-sea);
+            border: none;
+            box-shadow: 0 12px 30px rgba(10,37,64,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            z-index: 10000;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-floating-home:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 16px 40px rgba(10,37,64,0.4);
+            color: white;
+        }
 
         @media (max-width: 767px) {
             .hero-section { padding: 130px 0 200px; background-attachment: scroll; }
             .services-container { margin-top: -160px; }
             .service-card { padding: 24px 14px; }
             .service-icon { width: 56px; height: 56px; font-size: 24px; }
+            .btn-floating-home { left: 15px; width: 50px; height: 50px; font-size: 22px; }
         }
     </style>
 </head>
@@ -343,7 +379,7 @@
         <span class="badge ticker-badge me-3 fw-bold px-2 py-1 flex-shrink-0">INFO</span>
         <div class="marquee-container">
             <div class="marquee-content">
-                <p><i class="bi bi-info-circle-fill me-1" style="color: var(--clove-gold-light);"></i> Selamat datang di Sistem Layanan Digital Kelurahan Paseng. Birokrasi Efisien, Transparan &amp; Cepat. &nbsp;|&nbsp; Pendaftaran turnamen Paseng Cup 2026 dibuka di menu layanan.</p>
+                <p><i class="bi bi-info-circle-fill me-1" style="color: var(--clove-gold-light);"></i> Selamat datang di Sistem Layanan Digital Kelurahan Paseng. Birokrasi Efisien, Transparan & Cepat.  |  Pendaftaran turnamen Paseng Cup 2026 dibuka di menu layanan.</p>
             </div>
         </div>
     </div>
@@ -382,7 +418,7 @@
             <div class="service-card" onclick="openSecureApp('layanan', 'Layanan Bypass')">
                 <div class="service-icon ic-1"><i class="bi bi-file-earmark-text-fill"></i></div>
                 <h6 class="fw-bold mb-1">Layanan Bypass</h6>
-                <small class="text-muted d-none d-md-block">Penerbitan Surat &amp; Keterangan</small>
+                <small class="text-muted d-none d-md-block">Penerbitan Surat & Keterangan</small>
                 <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
@@ -390,7 +426,7 @@
             <div class="service-card" onclick="openSecureApp('posyandu', 'SIPANDU')">
                 <div class="service-icon ic-2"><i class="bi bi-balloon-heart-fill"></i></div>
                 <h6 class="fw-bold mb-1">SIPANDU</h6>
-                <small class="text-muted d-none d-md-block">Kesehatan &amp; Posyandu</small>
+                <small class="text-muted d-none d-md-block">Kesehatan & Posyandu</small>
                 <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
@@ -406,7 +442,7 @@
             <div class="service-card" onclick="openSecureApp('bencana', 'Info Bencana Alam')">
                 <div class="service-icon ic-4"><i class="bi bi-shield-fill-exclamation"></i></div>
                 <h6 class="fw-bold mb-1">Info Bencana</h6>
-                <small class="text-muted d-none d-md-block">Laporan &amp; Data Terdampak</small>
+                <small class="text-muted d-none d-md-block">Laporan & Data Terdampak</small>
                 <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
             </div>
         </div>
@@ -420,7 +456,9 @@
         </div>
         <div class="col-6 col-lg-4">
             <div class="service-card" onclick="openSecureApp('pasengCup', 'Paseng Cup 2026')">
-                <div class="service-icon ic-6"><i class="bi bi-trophy-fill"></i></div>
+                <div class="service-icon ic-6">
+                    <img src="https://i.ibb.co.com/bM4hd8dn/football-11807879.gif" alt="Animasi Bola" style="width: 42px; height: 42px; object-fit: contain;">
+                </div>
                 <h6 class="fw-bold mb-1">Paseng Cup 2026</h6>
                 <small class="text-muted d-none d-md-block">Informasi Turnamen Resmi</small>
                 <span class="service-arrow d-none d-md-inline">Buka layanan <i class="bi bi-arrow-right"></i></span>
@@ -553,7 +591,7 @@
         </div>
         <hr class="mt-5 mb-4 border-secondary opacity-25">
         <div class="text-center small opacity-50">
-            © 2026 Kelurahan Paseng. Dikembangkan oleh Kasi Pemeliharaan, Pemberdayaan &amp; Pelayanan ┃ Sandro Maola, SE
+            © 2026 Kelurahan Paseng. Dikembangkan oleh Kasi Pemeliharaan, Pemberdayaan & Pelayanan ┃ Sandro Maola, SE
         </div>
     </div>
 </footer>
@@ -641,12 +679,9 @@
 </div>
 
 <div id="appOverlay">
-    <div class="d-flex align-items-center justify-content-between px-4 shadow-sm bg-white app-topbar">
-        <h6 class="mb-0 fw-bold d-flex align-items-center" style="color: var(--deep-sea);" id="currentAppName">
-            <div class="spinner-grow spinner-grow-sm me-2" style="color: var(--clove-gold);"></div> Memuat Sistem...
-        </h6>
-        <button class="btn btn-sm btn-light text-danger fw-bold rounded-pill px-3" onclick="closeApp()"><i class="bi bi-x-lg me-1"></i> Tutup</button>
-    </div>
+    <button class="btn-floating-home" onclick="closeApp()" title="Kembali ke Beranda">
+        <i class="bi bi-house-door-fill"></i>
+    </button>
     <iframe id="appFrame" src="" allow="camera; microphone; fullscreen" onload="hideLoading()"></iframe>
 </div>
 
@@ -709,7 +744,7 @@
                 animateCounters();
             }
 
-            // Render Galeri (Disesuaikan agar mengirim gambar ke fungsi openNews)
+            // Render Galeri
             const galDiv = document.getElementById('galleryContainer');
             if(data.gallery?.length) {
                 galDiv.innerHTML = data.gallery.map((g, i) => {
@@ -740,13 +775,13 @@
                     </div>`).join('');
             } else { faqDiv.innerHTML = '<div class="p-4 text-center text-muted">Belum ada FAQ.</div>'; }
 
-            // Render Testimoni (Diperbaiki rata tengah)
+            // Render Testimoni
             const commDiv = document.getElementById('commentsContainer');
             if(data.comments?.length) {
                 commDiv.innerHTML = data.comments.map((c, i) => `
                     <div class="carousel-item ${i === 0 ? 'active' : ''}">
                         <div class="testi-card p-4 mx-auto" style="max-width: 650px;">
-                            <div class="quote-mark text-center mb-2">&ldquo;</div>
+                            <div class="quote-mark text-center mb-2">“</div>
                             <p class="fst-italic text-muted mb-4 text-center fs-6 lh-lg">${c.pesan}</p>
                             <div class="d-flex align-items-center justify-content-center flex-column text-center">
                                 <div class="testi-avatar rounded-circle fw-bold d-flex align-items-center justify-content-center mb-2">${c.nama.charAt(0).toUpperCase()}</div>
@@ -769,7 +804,6 @@
     }
     window.addEventListener('DOMContentLoaded', initData);
 
-    // Animasi Angka
     function animateCounters() {
         document.querySelectorAll('.counter').forEach(el => {
             const updateCount = () => {
@@ -783,7 +817,6 @@
     }
     window.addEventListener('scroll', animateCounters);
 
-    // Modals (Pop-up Berita yang disesuaikan untuk menampilkan Foto)
     const newsModal = new bootstrap.Modal(document.getElementById('newsModal'));
     function openNews(judul, isi, foto) {
         document.getElementById('newsTitle').innerText = judul;
@@ -800,9 +833,9 @@
         newsModal.show();
     }
 
-    // Security Logic
     let curKey = "", curName = "", expectedAns = 0;
     const secModal = new bootstrap.Modal(document.getElementById('securityModal'));
+    
     function openSecureApp(key, name) {
         curKey = key; curName = name;
         let n1 = Math.floor(Math.random() * 5) + 1; let n2 = Math.floor(Math.random() * 5) + 1; expectedAns = n1 + n2;
@@ -813,6 +846,7 @@
         document.getElementById('securityError').classList.add('d-none');
         secModal.show(); setTimeout(() => input.focus(), 500);
     }
+    
     function verifySecurity() {
         const input = document.getElementById('mathAnswer');
         if (parseInt(input.value) === expectedAns) {
@@ -824,7 +858,10 @@
             document.querySelector('#loadingOverlay p').innerText = curName;
 
             document.getElementById('appFrame').src = APPS[curKey];
-            document.getElementById('appOverlay').style.display = 'block';
+            
+            const overlay = document.getElementById('appOverlay');
+            overlay.style.visibility = 'visible';
+            overlay.style.opacity = '1';
             document.body.style.overflow = 'hidden';
         } else {
             input.classList.add('is-invalid');
@@ -832,18 +869,25 @@
             input.value = ''; input.focus();
         }
     }
+    
     function handleEnter(e) { if (e.key === 'Enter') verifySecurity(); }
+    
     function hideLoading() {
         const loader = document.getElementById('loadingOverlay');
         loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500);
     }
+    
     function closeApp() {
-        document.getElementById('appOverlay').style.display = 'none';
-        document.getElementById('appFrame').src = "";
-        document.body.style.overflow = 'auto';
+        const overlay = document.getElementById('appOverlay');
+        overlay.style.opacity = '0';
+        
+        setTimeout(() => {
+            overlay.style.visibility = 'hidden';
+            document.getElementById('appFrame').src = "";
+            document.body.style.overflow = 'auto';
+        }, 600);
     }
 
-    // Form Kritik Saran
     const form = document.forms['google-sheet-feedback'];
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -862,7 +906,6 @@
         }
     });
 
-    // Admin Bypass URL
     if (new URLSearchParams(window.location.search).get('page') === 'admin') {
         window.history.replaceState({}, document.title, window.location.pathname);
         openSecureApp('admin', 'Panel Administrator');
